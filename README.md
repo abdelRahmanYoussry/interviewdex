@@ -6,6 +6,14 @@ The app supports English and Arabic (RTL), system/light/dark appearance, and
 saves both preferences locally. Fonts are bundled for offline use, and their
 OFL license texts are registered in the app's license registry.
 
+Interview practice opens the Flutter track directly when it is the only
+available track, and shows a picker when there are multiple tracks. Card
+progress is stored on-device in a versioned per-track record. Ratings schedule
+the next review using spaced repetition; a card is mastered after two
+consecutive “Nailed it” ratings. Sessions can be resumed at the same card and
+reveal state, behavioural answer templates save drafts locally, and an
+optional 90-second timer helps practice answers out loud.
+
 The app follows a feature-first Clean Architecture structure:
 
 - `lib/core/` contains shared app services and configuration.

@@ -57,6 +57,16 @@ class HomeScreen extends StatelessWidget {
                     style: theme.textTheme.titleMedium,
                     textAlign: TextAlign.start,
                   ),
+                  const SizedBox(height: 28),
+                  FilledButton.icon(
+                    key: const ValueKey('startInterview'),
+                    onPressed:
+                        () => Navigator.of(
+                          context,
+                        ).pushNamed(AppRoutes.interview),
+                    icon: const Icon(Icons.play_arrow_rounded),
+                    label: Text(localizations.startInterview),
+                  ),
                 ],
               ),
             ),

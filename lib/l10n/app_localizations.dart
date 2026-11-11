@@ -62,7 +62,8 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,17 +84,18 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
-    Locale('en')
+    Locale('en'),
   ];
 
   /// No description provided for @appTitle.
@@ -167,6 +170,12 @@ abstract class AppLocalizations {
   /// **'Prepare for your next interview'**
   String get homeWelcome;
 
+  /// No description provided for @startInterview.
+  ///
+  /// In en, this message translates to:
+  /// **'Start preparing'**
+  String get startInterview;
+
   /// No description provided for @settingsDescription.
   ///
   /// In en, this message translates to:
@@ -178,9 +187,220 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your choices are saved on this device.'**
   String get savedAutomatically;
+
+  /// No description provided for @trackPickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a track'**
+  String get trackPickerTitle;
+
+  /// No description provided for @chooseTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the interview track you want to practice.'**
+  String get chooseTrack;
+
+  /// No description provided for @noTracksAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No interview tracks are available yet.'**
+  String get noTracksAvailable;
+
+  /// No description provided for @trackLoadFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t load interview tracks.'**
+  String get trackLoadFailure;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get retry;
+
+  /// No description provided for @masteryProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{mastered, plural, =0{No cards mastered} one{# card mastered} other{# cards mastered}} of {total, plural, =0{no cards} one{# card} other{# cards}}'**
+  String masteryProgress(int mastered, int total);
+
+  /// No description provided for @startMockInterview.
+  ///
+  /// In en, this message translates to:
+  /// **'Start mock interview'**
+  String get startMockInterview;
+
+  /// No description provided for @mockInterview.
+  ///
+  /// In en, this message translates to:
+  /// **'Mock interview'**
+  String get mockInterview;
+
+  /// No description provided for @practiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice'**
+  String get practiceTitle;
+
+  /// No description provided for @topics.
+  ///
+  /// In en, this message translates to:
+  /// **'Topics'**
+  String get topics;
+
+  /// No description provided for @topicCardCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No questions} one{# question} other{# questions}}'**
+  String topicCardCount(int count);
+
+  /// No description provided for @practiceTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice topic'**
+  String get practiceTopic;
+
+  /// No description provided for @questionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total, plural, =0{no questions} one{# question} other{# questions}}'**
+  String questionProgress(int current, int total);
+
+  /// No description provided for @nailedItStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Nailed it streak: {count, plural, one{# consecutive rating} other{# consecutive ratings}} of 2'**
+  String nailedItStreak(int count);
+
+  /// No description provided for @answerFramework.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer framework'**
+  String get answerFramework;
+
+  /// No description provided for @resumePractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume practice'**
+  String get resumePractice;
+
+  /// No description provided for @resumeMockInterview.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume mock interview'**
+  String get resumeMockInterview;
+
+  /// No description provided for @partly.
+  ///
+  /// In en, this message translates to:
+  /// **'Partly'**
+  String get partly;
+
+  /// No description provided for @missed.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed'**
+  String get missed;
+
+  /// No description provided for @practiceLoadFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t open this practice session.'**
+  String get practiceLoadFailure;
+
+  /// No description provided for @startAnswerTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Start 90-second timer'**
+  String get startAnswerTimer;
+
+  /// No description provided for @revealAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Reveal answer'**
+  String get revealAnswer;
+
+  /// No description provided for @sampleAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Sample answer'**
+  String get sampleAnswer;
+
+  /// No description provided for @keyPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Key points'**
+  String get keyPoints;
+
+  /// No description provided for @solution.
+  ///
+  /// In en, this message translates to:
+  /// **'Solution'**
+  String get solution;
+
+  /// No description provided for @steps.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps'**
+  String get steps;
+
+  /// No description provided for @timeComplexity.
+  ///
+  /// In en, this message translates to:
+  /// **'Time complexity'**
+  String get timeComplexity;
+
+  /// No description provided for @spaceComplexity.
+  ///
+  /// In en, this message translates to:
+  /// **'Space complexity'**
+  String get spaceComplexity;
+
+  /// No description provided for @followUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow-up'**
+  String get followUp;
+
+  /// No description provided for @commonMistake.
+  ///
+  /// In en, this message translates to:
+  /// **'Common mistake'**
+  String get commonMistake;
+
+  /// No description provided for @mastered.
+  ///
+  /// In en, this message translates to:
+  /// **'Mastered'**
+  String get mastered;
+
+  /// No description provided for @nailedIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Nailed it'**
+  String get nailedIt;
+
+  /// No description provided for @mockInterviewComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Mock interview complete. Great work!'**
+  String get mockInterviewComplete;
+
+  /// No description provided for @practiceComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice complete. Keep it up!'**
+  String get practiceComplete;
+
+  /// No description provided for @backToTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to track'**
+  String get backToTrack;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -189,25 +409,26 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return AppLocalizationsAr();
-    case 'en': return AppLocalizationsEn();
+    case 'ar':
+      return AppLocalizationsAr();
+    case 'en':
+      return AppLocalizationsEn();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

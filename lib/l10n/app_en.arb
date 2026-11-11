@@ -12,6 +12,64 @@
   "themeLight": "Light",
   "themeDark": "Dark",
   "homeWelcome": "Prepare for your next interview",
+  "startInterview": "Start preparing",
   "settingsDescription": "Choose your language and appearance.",
-  "savedAutomatically": "Your choices are saved on this device."
+  "savedAutomatically": "Your choices are saved on this device.",
+  "trackPickerTitle": "Choose a track",
+  "chooseTrack": "Choose the interview track you want to practice.",
+  "noTracksAvailable": "No interview tracks are available yet.",
+  "trackLoadFailure": "We couldn't load interview tracks.",
+  "retry": "Try again",
+  "masteryProgress": "{mastered, plural, =0{No cards mastered} one{# card mastered} other{# cards mastered}} of {total, plural, =0{no cards} one{# card} other{# cards}}",
+  "@masteryProgress": {
+    "placeholders": {
+      "mastered": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "startMockInterview": "Start mock interview",
+  "mockInterview": "Mock interview",
+  "practiceTitle": "Practice",
+  "topics": "Topics",
+  "topicCardCount": "{count, plural, =0{No questions} one{# question} other{# questions}}",
+  "@topicCardCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "practiceTopic": "Practice topic",
+  "questionProgress": "Question {current} of {total, plural, =0{no questions} one{# question} other{# questions}}",
+  "@questionProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "nailedItStreak": "Nailed it streak: {count, plural, one{# consecutive rating} other{# consecutive ratings}} of 2",
+  "@nailedItStreak": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "answerFramework": "Answer framework",
+  "resumePractice": "Resume practice",
+  "resumeMockInterview": "Resume mock interview",
+  "partly": "Partly",
+  "missed": "Missed",
+  "practiceLoadFailure": "We couldn't open this practice session.",
+  "startAnswerTimer": "Start 90-second timer",
+  "revealAnswer": "Reveal answer",
+  "sampleAnswer": "Sample answer",
+  "keyPoints": "Key points",
+  "solution": "Solution",
+  "steps": "Steps",
+  "timeComplexity": "Time complexity",
+  "spaceComplexity": "Space complexity",
+  "followUp": "Follow-up",
+  "commonMistake": "Common mistake",
+  "mastered": "Mastered",
+  "nailedIt": "Nailed it",
+  "mockInterviewComplete": "Mock interview complete. Great work!",
+  "practiceComplete": "Practice complete. Keep it up!",
+  "backToTrack": "Back to track"
 }
