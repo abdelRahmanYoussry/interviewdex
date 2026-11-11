@@ -250,6 +250,9 @@ class SharedPreferencesPracticeProgressRepository
     'revealed': session.revealed,
     'topicId': session.topicId,
     'retriedCardIds': session.retriedCardIds.toList(),
+    'ratings': {
+      for (final entry in session.ratings.entries) entry.key: entry.value.name,
+    },
   };
 
   SavedPracticeSession? _decodeSession(Object? raw) {
@@ -261,6 +264,7 @@ class SharedPreferencesPracticeProgressRepository
     final revealed = value['revealed'];
     final topicId = value['topicId'];
     final rawRetried = value['retriedCardIds'];
+    final rawRatings = value['ratings'];
     List<Object?>? retriedValues;
     if (rawMode is! String) return null;
     if (rawCardIds is! List<Object?>) return null;
@@ -271,6 +275,9 @@ class SharedPreferencesPracticeProgressRepository
       if (rawRetried is! List<Object?>) return null;
       retriedValues = rawRetried;
     }
+    final ratingValues =
+        rawRatings == null ? <String, Object?>{} : _stringKeyedMap(rawRatings);
+    if (ratingValues == null) return null;
 
     PracticeMode? mode;
     for (final candidate in PracticeMode.values) {
@@ -294,6 +301,16 @@ class SharedPreferencesPracticeProgressRepository
         retriedCardIds.length != retriedValues.length) {
       return null;
     }
+    final ratings = <String, CardRating>{};
+    for (final entry in ratingValues.entries) {
+      if (entry.value is! String) return null;
+      CardRating? rating;
+      for (final candidate in CardRating.values) {
+        if (candidate.name == entry.value) rating = candidate;
+      }
+      if (rating == null) return null;
+      ratings[entry.key] = rating;
+    }
     return SavedPracticeSession(
       mode: mode,
       cardIds: cardIds,
@@ -301,6 +318,7 @@ class SharedPreferencesPracticeProgressRepository
       revealed: revealed,
       topicId: topicId is String ? topicId : null,
       retriedCardIds: retriedCardIds.toSet(),
+      ratings: ratings,
     );
   }
 

@@ -397,6 +397,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to track'**
   String get backToTrack;
+
+  /// No description provided for @mockSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mock interview results'**
+  String get mockSummaryTitle;
+
+  /// No description provided for @overallScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall score'**
+  String get overallScore;
+
+  /// No description provided for @topicBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Topic scores'**
+  String get topicBreakdown;
+
+  /// No description provided for @mockSummaryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No mock interview ratings are available.'**
+  String get mockSummaryEmpty;
+
+  /// No description provided for @practiceThisTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice this topic'**
+  String get practiceThisTopic;
+
+  /// No description provided for @mockReviewCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No questions to review} one{# question to review} other{# questions to review}}'**
+  String mockReviewCount(int count);
 }
 
 class _AppLocalizationsDelegate

@@ -76,12 +76,22 @@ class TrackCubit extends Cubit<TrackState> {
     try {
       final progress = await _progressRepository.load(track.id);
       var resumeSession = progress.session;
-      final contentCardIds = {
+      final cardsByTopic = {
         for (final topic in track.topics)
-          for (final card in topic.interviewCards) card.id,
+          topic.id: {for (final card in topic.interviewCards) card.id},
       };
-      if (resumeSession != null &&
-          !resumeSession.cardIds.every(contentCardIds.contains)) {
+      final contentCardIds = cardsByTopic.values.expand((ids) => ids).toSet();
+      final sessionMatchesContent =
+          resumeSession == null ||
+          (resumeSession.mode == PracticeMode.mock
+                  ? resumeSession.topicId == null
+                  : resumeSession.topicId != null &&
+                      cardsByTopic.containsKey(resumeSession.topicId) &&
+                      resumeSession.cardIds.every(
+                        cardsByTopic[resumeSession.topicId]!.contains,
+                      )) &&
+              resumeSession.cardIds.every(contentCardIds.contains);
+      if (resumeSession != null && !sessionMatchesContent) {
         _logWarning(
           'Discarding saved session for "${track.id}" because its cards no longer exist.',
         );

@@ -14,6 +14,11 @@ consecutive “Nailed it” ratings. Sessions can be resumed at the same card an
 reveal state, behavioural answer templates save drafts locally, and an
 optional 90-second timer helps practice answers out loud.
 
+Mock interviews choose a stage-ordered set of up to ten unique cards, spread
+technical questions across topics, and do not repeat missed questions. The
+completed interview opens a separate summary with overall and topic scores,
+weak-topic practice links, and questions rated “Partly” or “Missed”.
+
 The app follows a feature-first Clean Architecture structure:
 
 - `lib/core/` contains shared app services and configuration.

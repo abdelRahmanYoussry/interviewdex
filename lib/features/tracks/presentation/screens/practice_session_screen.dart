@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/saved_practice_session.dart';
 import '../cubits/practice_session_cubit.dart';
+import 'mock_interview_summary_screen.dart';
 import '../widgets/answer_timer_button.dart';
 import '../widgets/practice_answer_sections.dart';
 import '../widgets/practice_question_card.dart';
@@ -57,7 +59,21 @@ class PracticeSessionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings = AppLocalizations.of(context)!;
-    return BlocBuilder<PracticeSessionCubit, PracticeSessionState>(
+    return BlocConsumer<PracticeSessionCubit, PracticeSessionState>(
+      listener: (context, state) {
+        if (state case PracticeSessionComplete(
+          :final track,
+          summary: final summary?,
+        )) {
+          Navigator.of(context).pushReplacementNamed(
+            AppRoutes.mockSummary,
+            arguments: MockInterviewSummaryRequest(
+              track: track,
+              summary: summary,
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         final title = switch (state) {
           PracticeSessionActive(:final mode) =>

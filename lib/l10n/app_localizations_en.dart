@@ -200,4 +200,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get backToTrack => 'Back to track';
+
+  @override
+  String get mockSummaryTitle => 'Mock interview results';
+
+  @override
+  String get overallScore => 'Overall score';
+
+  @override
+  String get topicBreakdown => 'Topic scores';
+
+  @override
+  String get mockSummaryEmpty => 'No mock interview ratings are available.';
+
+  @override
+  String get practiceThisTopic => 'Practice this topic';
+
+  @override
+  String mockReviewCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# questions to review',
+      one: '# question to review',
+      zero: 'No questions to review',
+    );
+    return '$_temp0';
+  }
 }

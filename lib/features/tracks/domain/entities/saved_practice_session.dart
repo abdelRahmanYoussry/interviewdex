@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'card_progress.dart';
+
 enum PracticeMode { topic, mock }
 
 class SavedPracticeSession extends Equatable {
@@ -10,6 +12,7 @@ class SavedPracticeSession extends Equatable {
     required this.revealed,
     this.topicId,
     this.retriedCardIds = const {},
+    this.ratings = const {},
   });
 
   final PracticeMode mode;
@@ -18,6 +21,7 @@ class SavedPracticeSession extends Equatable {
   final bool revealed;
   final String? topicId;
   final Set<String> retriedCardIds;
+  final Map<String, CardRating> ratings;
 
   @override
   List<Object?> get props => [
@@ -27,5 +31,6 @@ class SavedPracticeSession extends Equatable {
     revealed,
     topicId,
     retriedCardIds,
+    ratings,
   ];
 }

@@ -49,5 +49,16 @@
   "nailedIt": "أجبت بإتقان",
   "mockInterviewComplete": "اكتملت المقابلة التجريبية. أحسنت!",
   "practiceComplete": "اكتمل التدريب. واصل التقدم!",
-  "backToTrack": "العودة إلى المسار"
+  "backToTrack": "العودة إلى المسار",
+  "mockSummaryTitle": "نتائج المقابلة التجريبية",
+  "overallScore": "النتيجة الإجمالية",
+  "topicBreakdown": "درجات الموضوعات",
+  "mockSummaryEmpty": "لا توجد تقييمات للمقابلة التجريبية.",
+  "practiceThisTopic": "تدرب على هذا الموضوع",
+  "mockReviewCount": "{count, plural, zero{لا توجد أسئلة للمراجعة} one{سؤال واحد للمراجعة} two{سؤالان للمراجعة} few{# أسئلة للمراجعة} many{# سؤالًا للمراجعة} other{# سؤال للمراجعة}}",
+  "@mockReviewCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

@@ -261,6 +261,72 @@ void main() {
     expect(progress.sessions['flutter']!.cardIds, ['intro', 'behavioral']);
     await cubit.close();
   });
+
+  test('mock run never retries Missed and completes analytics once', () async {
+    final progress = MemoryPracticeProgressRepository();
+    final analytics = TestAnalytics();
+    final cubit = createCubit(progress, analytics: analytics);
+    await cubit.open(
+      const PracticeSessionRequest(trackId: 'flutter', mode: PracticeMode.mock),
+    );
+
+    final initial = cubit.state as PracticeSessionActive;
+    final originalIds = initial.cards.map((card) => card.question.id).toList();
+    expect(initial.mode, PracticeMode.mock);
+    for (var index = 0; index < originalIds.length; index++) {
+      await cubit.revealAnswer();
+      await cubit.rate(CardRating.missed);
+      if (index < originalIds.length - 1) {
+        final active = cubit.state as PracticeSessionActive;
+        expect(active.cards.map((card) => card.question.id), originalIds);
+        expect(active.index, index + 1);
+      }
+    }
+
+    final complete = cubit.state as PracticeSessionComplete;
+    expect(complete.summary, isNotNull);
+    expect(complete.summary!.reviewCards, hasLength(originalIds.length));
+    expect(analytics.mockCompletions, 1);
+    await cubit.rate(CardRating.missed);
+    expect(analytics.mockCompletions, 1);
+    await cubit.close();
+  });
+
+  test('resuming a mock retains earlier ratings for its summary', () async {
+    final progress = MemoryPracticeProgressRepository();
+    final analytics = TestAnalytics();
+    final firstCubit = createCubit(progress, analytics: analytics);
+    await firstCubit.open(
+      const PracticeSessionRequest(trackId: 'flutter', mode: PracticeMode.mock),
+    );
+    await firstCubit.revealAnswer();
+    await firstCubit.rate(CardRating.nailedIt);
+    final saved = progress.sessions['flutter']!;
+    expect(saved.ratings['intro'], CardRating.nailedIt);
+    await firstCubit.close();
+
+    final resumedCubit = createCubit(progress, analytics: analytics);
+    await resumedCubit.open(
+      PracticeSessionRequest(
+        trackId: 'flutter',
+        mode: PracticeMode.mock,
+        savedSession: saved,
+      ),
+    );
+    final resumed = resumedCubit.state as PracticeSessionActive;
+    expect(resumed.ratings, {'intro': CardRating.nailedIt});
+
+    while (resumedCubit.state is PracticeSessionActive) {
+      await resumedCubit.revealAnswer();
+      await resumedCubit.rate(CardRating.partly);
+    }
+
+    final summary = (resumedCubit.state as PracticeSessionComplete).summary!;
+    expect(summary.overallScore, greaterThan(0));
+    expect(summary.reviewCards, isNotEmpty);
+    expect(analytics.mockCompletions, 1);
+    await resumedCubit.close();
+  });
 }
 
 class CountingTemplateRepository extends MemoryPracticeProgressRepository {

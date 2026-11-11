@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -6,13 +7,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/analytics/analytics_service.dart';
 import '../../domain/entities/card_progress.dart';
-import '../../domain/entities/interview_question.dart';
+import '../../domain/entities/mock_interview_summary.dart';
 import '../../domain/entities/practice_card.dart';
 import '../../domain/entities/saved_practice_session.dart';
 import '../../domain/entities/track.dart';
 import '../../domain/repositories/practice_progress_repository.dart';
 import '../../domain/use_cases/load_tracks.dart';
 import '../../domain/use_cases/spaced_repetition.dart';
+import '../../domain/use_cases/build_mock_interview.dart';
+import '../../domain/use_cases/summarize_mock_interview.dart';
+import 'template_answer_saver.dart';
 
 class PracticeSessionRequest {
   const PracticeSessionRequest({
@@ -49,6 +53,7 @@ final class PracticeSessionActive extends PracticeSessionState {
     required this.topicId,
     required this.progress,
     required this.retriedCardIds,
+    this.ratings = const {},
   });
 
   final InterviewTrack track;
@@ -59,6 +64,7 @@ final class PracticeSessionActive extends PracticeSessionState {
   final String? topicId;
   final Map<String, CardProgress> progress;
   final Set<String> retriedCardIds;
+  final Map<String, CardRating> ratings;
 
   PracticeCard get currentCard => cards[index];
 
@@ -69,6 +75,7 @@ final class PracticeSessionActive extends PracticeSessionState {
     revealed: revealed,
     topicId: topicId,
     retriedCardIds: retriedCardIds,
+    ratings: ratings,
   );
 
   @override
@@ -81,16 +88,18 @@ final class PracticeSessionActive extends PracticeSessionState {
     topicId,
     progress,
     retriedCardIds,
+    ratings,
   ];
 }
 
 final class PracticeSessionComplete extends PracticeSessionState {
-  const PracticeSessionComplete(this.track);
+  const PracticeSessionComplete(this.track, {this.summary});
 
   final InterviewTrack track;
+  final MockInterviewSummary? summary;
 
   @override
-  List<Object?> get props => [track];
+  List<Object?> get props => [track, summary];
 }
 
 final class PracticeSessionFailure extends PracticeSessionState {
@@ -106,10 +115,20 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
     required PracticeProgressRepository progressRepository,
     required SpacedRepetition spacedRepetition,
     required AnalyticsService analytics,
+    BuildMockInterview? buildMockInterview,
+    SummarizeMockInterview? summarizeMockInterview,
+    TemplateAnswerSaver? templateAnswerSaver,
+    Random? random,
     DateTime Function()? clock,
   }) : _loadTracks = loadTracks,
        _progressRepository = progressRepository,
        _spacedRepetition = spacedRepetition,
+       _buildMockInterview = buildMockInterview ?? const BuildMockInterview(),
+       _summarizeMockInterview =
+           summarizeMockInterview ?? SummarizeMockInterview(),
+       _templateAnswerSaver =
+           templateAnswerSaver ?? TemplateAnswerSaver(progressRepository),
+       _random = random ?? Random(),
        _analytics = analytics,
        _clock = clock ?? DateTime.now,
        super(const PracticeSessionLoading());
@@ -117,12 +136,17 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
   final LoadTracks _loadTracks;
   final PracticeProgressRepository _progressRepository;
   final SpacedRepetition _spacedRepetition;
+  final BuildMockInterview _buildMockInterview;
+  final SummarizeMockInterview _summarizeMockInterview;
+  final TemplateAnswerSaver _templateAnswerSaver;
+  final Random _random;
   final AnalyticsService _analytics;
   final DateTime Function() _clock;
   bool _ratingInProgress = false;
-  final Map<(String, String), _PendingTemplateWrite> _pendingTemplates = {};
+  bool _mockCompletionTracked = false;
 
   Future<void> open(PracticeSessionRequest request) async {
+    _mockCompletionTracked = false;
     emit(const PracticeSessionLoading());
     try {
       final tracks = await _loadTracks();
@@ -147,7 +171,7 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
         await _progressRepository.clearSession(track.id);
         resume = null;
       }
-      var cards = _cards(track, resume?.topicId ?? request.topicId);
+      final cards = _cards(track, resume?.topicId ?? request.topicId);
       var queuedCards = resume == null ? null : _restoreQueue(cards, resume);
       if (resume != null && queuedCards == null) {
         debugPrint(
@@ -158,7 +182,7 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
       }
       queuedCards ??=
           request.mode == PracticeMode.mock
-              ? _mockQueue(track, snapshot.cards)
+              ? _buildMockInterview(track, snapshot.cards, _random)
               : _orderedQueue(cards, snapshot.cards);
       if (queuedCards.isEmpty) {
         emit(const PracticeSessionFailure());
@@ -174,6 +198,7 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
         topicId: saved?.topicId ?? request.topicId,
         progress: snapshot.cards,
         retriedCardIds: saved?.retriedCardIds ?? const {},
+        ratings: saved?.ratings ?? const {},
       );
       await _saveSession(initial);
       emit(initial);
@@ -217,18 +242,26 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
         ),
       );
 
+      final ratings = {...active.ratings, question.id: rating};
       final cards = [...active.cards];
       final retried = {...active.retriedCardIds};
-      if (rating == CardRating.missed && retried.add(question.id)) {
+      if (active.mode == PracticeMode.topic &&
+          rating == CardRating.missed &&
+          retried.add(question.id)) {
         cards.add(active.currentCard);
       }
       final nextIndex = active.index + 1;
       if (nextIndex >= cards.length) {
         await _progressRepository.clearSession(active.track.id);
+        MockInterviewSummary? summary;
         if (active.mode == PracticeMode.mock) {
-          unawaited(_analytics.mockInterviewComplete());
+          summary = _summarizeMockInterview(active.track, ratings);
+          if (!_mockCompletionTracked) {
+            _mockCompletionTracked = true;
+            unawaited(_analytics.mockInterviewComplete());
+          }
         }
-        emit(PracticeSessionComplete(active.track));
+        emit(PracticeSessionComplete(active.track, summary: summary));
         return;
       }
       await _emitAndSave(
@@ -241,6 +274,7 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
           topicId: active.topicId,
           progress: {...active.progress, question.id: updated},
           retriedCardIds: retried,
+          ratings: ratings,
         ),
       );
     } finally {
@@ -271,49 +305,10 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
         topicId: active.topicId,
         progress: {...active.progress, cardId: updated},
         retriedCardIds: active.retriedCardIds,
+        ratings: active.ratings,
       ),
     );
-    final key = (active.track.id, cardId);
-    final completer = Completer<void>();
-    final pending = _pendingTemplates[key];
-    if (pending == null) {
-      _pendingTemplates[key] = _PendingTemplateWrite(
-        answers: Map.unmodifiable(answers),
-        completers: [completer],
-      );
-    } else {
-      pending.timer?.cancel();
-      pending.answers = Map.unmodifiable(answers);
-      pending.completers.add(completer);
-    }
-    final next = _pendingTemplates[key]!;
-    next.timer = Timer(
-      const Duration(milliseconds: 400),
-      () => unawaited(_flushTemplate(key, next)),
-    );
-    return completer.future;
-  }
-
-  Future<void> _flushTemplate(
-    (String, String) key,
-    _PendingTemplateWrite pending,
-  ) async {
-    if (!identical(_pendingTemplates[key], pending)) return;
-    pending.timer?.cancel();
-    _pendingTemplates.remove(key);
-    try {
-      await _progressRepository.saveTemplateAnswers(
-        key.$1,
-        key.$2,
-        pending.answers,
-      );
-    } on Object catch (error) {
-      debugPrint('Unable to save answer template: $error');
-    } finally {
-      for (final completer in pending.completers) {
-        if (!completer.isCompleted) completer.complete();
-      }
-    }
+    return _templateAnswerSaver.save(active.track.id, cardId, answers);
   }
 
   Future<void> _emitAndSave(PracticeSessionActive active) async {
@@ -323,11 +318,7 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
 
   @override
   Future<void> close() async {
-    final pending = _pendingTemplates.entries.toList();
-    for (final entry in pending) {
-      entry.value.timer?.cancel();
-      await _flushTemplate(entry.key, entry.value);
-    }
+    await _templateAnswerSaver.flush();
     await super.close();
   }
 
@@ -346,6 +337,7 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
     topicId: active.topicId,
     progress: active.progress,
     retriedCardIds: active.retriedCardIds,
+    ratings: active.ratings,
   );
 
   List<PracticeCard>? _restoreQueue(
@@ -378,33 +370,6 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
     return [for (final question in ordered) byId[question.id]!];
   }
 
-  List<PracticeCard> _mockQueue(
-    InterviewTrack track,
-    Map<String, CardProgress> progress,
-  ) {
-    final cards = _cards(track, null);
-    final staged = <PracticeCard>[];
-    for (final stage in [
-      InterviewStage.intro,
-      InterviewStage.behavioral,
-      InterviewStage.technical,
-    ]) {
-      staged.addAll(
-        _orderedQueue(
-          cards.where((card) => card.question.stage == stage).toList(),
-          progress,
-        ),
-      );
-    }
-    final liveCoding = cards.where(
-      (card) => card.question.stage == InterviewStage.liveCoding,
-    );
-    if (liveCoding.isNotEmpty) {
-      staged.addAll(_orderedQueue([liveCoding.first], progress));
-    }
-    return staged;
-  }
-
   List<PracticeCard> _cards(InterviewTrack track, String? topicId) => [
     for (final topic in track.topics)
       if (topicId == null || topic.id == topicId)
@@ -415,12 +380,4 @@ class PracticeSessionCubit extends Cubit<PracticeSessionState> {
             question: question,
           ),
   ];
-}
-
-class _PendingTemplateWrite {
-  _PendingTemplateWrite({required this.answers, required this.completers});
-
-  Map<String, String> answers;
-  final List<Completer<void>> completers;
-  Timer? timer;
 }

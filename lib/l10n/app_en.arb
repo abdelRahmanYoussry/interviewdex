@@ -71,5 +71,16 @@
   "nailedIt": "Nailed it",
   "mockInterviewComplete": "Mock interview complete. Great work!",
   "practiceComplete": "Practice complete. Keep it up!",
-  "backToTrack": "Back to track"
+  "backToTrack": "Back to track",
+  "mockSummaryTitle": "Mock interview results",
+  "overallScore": "Overall score",
+  "topicBreakdown": "Topic scores",
+  "mockSummaryEmpty": "No mock interview ratings are available.",
+  "practiceThisTopic": "Practice this topic",
+  "mockReviewCount": "{count, plural, =0{No questions to review} one{# question to review} other{# questions to review}}",
+  "@mockReviewCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

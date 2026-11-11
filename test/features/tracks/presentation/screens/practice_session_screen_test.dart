@@ -172,6 +172,65 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('completed mock replaces the session route with its summary', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 900);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final track = practiceTrack();
+    final progress = MemoryPracticeProgressRepository();
+    final router = AppRouter(
+      createPracticeSessionCubit:
+          () => PracticeSessionCubit(
+            loadTracks: LoadTracks(MemoryTrackRepository([track])),
+            progressRepository: progress,
+            spacedRepetition: const SpacedRepetition(),
+            analytics: TestAnalytics(),
+          ),
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('en'),
+        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        theme: AppTheme.light(),
+        home: TrackRoute(
+          cubit: TrackCubit(
+            loadTracks: LoadTracks(MemoryTrackRepository([track])),
+            progressRepository: progress,
+            analytics: TestAnalytics(),
+          ),
+        ),
+        onGenerateRoute: router.onGenerateRoute,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Start mock interview'));
+    await tester.tap(find.text('Start mock interview'));
+    await tester.pumpAndSettle();
+
+    while (find.byType(PracticeSessionScreen).evaluate().isNotEmpty) {
+      await tester.tap(find.text('Reveal answer'));
+      await tester.pumpAndSettle();
+      final missedButton = find.byKey(const ValueKey('rate-missed'));
+      await tester.ensureVisible(missedButton);
+      await tester.tap(missedButton);
+      await tester.pumpAndSettle();
+    }
+
+    expect(find.text('Mock interview results'), findsOneWidget);
+    final backButton = find.text('Back to track');
+    await tester.ensureVisible(backButton);
+    await tester.tap(backButton);
+    await tester.pumpAndSettle();
+    expect(find.text('Start mock interview'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('answer timer counts down from 90 seconds', (tester) async {
     await tester.pumpWidget(
       MaterialApp(

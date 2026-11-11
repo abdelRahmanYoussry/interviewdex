@@ -25,6 +25,7 @@ void main() {
         cardIds: const ['card-a', 'card-b'],
         index: 1,
         revealed: true,
+        ratings: const {'card-a': CardRating.nailedIt},
       );
 
       await repository.saveTemplateAnswers('flutter', 'card-a', {
@@ -60,6 +61,7 @@ void main() {
       expect(stored['version'], 1);
       final loaded = await repository.load('flutter');
       expect(loaded.session, session);
+      expect(loaded.session!.ratings['card-a'], CardRating.nailedIt);
       expect(loaded.cards['card-a']!.lastRating, CardRating.partly);
       expect(loaded.cards['card-a']!.templateAnswers, {
         'situation': 'Release deadline',

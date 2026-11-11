@@ -5,6 +5,7 @@ import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../../features/tracks/presentation/cubits/practice_session_cubit.dart';
 import '../../features/tracks/presentation/cubits/track_cubit.dart';
 import '../../features/tracks/presentation/screens/practice_session_screen.dart';
+import '../../features/tracks/presentation/screens/mock_interview_summary_screen.dart';
 import '../../features/tracks/presentation/screens/track_screen.dart';
 
 abstract final class AppRoutes {
@@ -12,6 +13,7 @@ abstract final class AppRoutes {
   static const settings = '/settings';
   static const interview = '/interview';
   static const practiceSession = '/interview/session';
+  static const mockSummary = '/interview/mock-summary';
 }
 
 class AppRouter {
@@ -50,6 +52,17 @@ class AppRouter {
               (_) => PracticeSessionRoute(
                 cubit: createCubit(),
                 request: arguments,
+              ),
+          settings: settings,
+        );
+      case AppRoutes.mockSummary:
+        final arguments = settings.arguments;
+        if (arguments is! MockInterviewSummaryRequest) return null;
+        return MaterialPageRoute<void>(
+          builder:
+              (_) => MockInterviewSummaryScreen(
+                track: arguments.track,
+                summary: arguments.summary,
               ),
           settings: settings,
         );

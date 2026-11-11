@@ -13,7 +13,9 @@ import '../../features/tracks/data/repositories/shared_preferences_practice_prog
 import '../../features/tracks/domain/repositories/practice_progress_repository.dart';
 import '../../features/tracks/domain/repositories/track_repository.dart';
 import '../../features/tracks/domain/use_cases/load_tracks.dart';
+import '../../features/tracks/domain/use_cases/build_mock_interview.dart';
 import '../../features/tracks/domain/use_cases/spaced_repetition.dart';
+import '../../features/tracks/domain/use_cases/summarize_mock_interview.dart';
 import '../../features/tracks/presentation/cubits/practice_session_cubit.dart';
 import '../../features/tracks/presentation/cubits/track_cubit.dart';
 import '../router/app_router.dart';
@@ -79,12 +81,20 @@ Future<void> setupServiceLocator() async {
   if (!sl.isRegistered<SpacedRepetition>()) {
     sl.registerLazySingleton(() => const SpacedRepetition());
   }
+  if (!sl.isRegistered<BuildMockInterview>()) {
+    sl.registerLazySingleton(() => const BuildMockInterview());
+  }
+  if (!sl.isRegistered<SummarizeMockInterview>()) {
+    sl.registerLazySingleton(() => const SummarizeMockInterview());
+  }
   if (!sl.isRegistered<PracticeSessionCubit>()) {
     sl.registerFactory(
       () => PracticeSessionCubit(
         loadTracks: sl<LoadTracks>(),
         progressRepository: sl<PracticeProgressRepository>(),
         spacedRepetition: sl<SpacedRepetition>(),
+        buildMockInterview: sl<BuildMockInterview>(),
+        summarizeMockInterview: sl<SummarizeMockInterview>(),
         analytics: sl<AnalyticsService>(),
       ),
     );

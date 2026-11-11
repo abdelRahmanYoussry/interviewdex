@@ -216,4 +216,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get backToTrack => 'العودة إلى المسار';
+
+  @override
+  String get mockSummaryTitle => 'نتائج المقابلة التجريبية';
+
+  @override
+  String get overallScore => 'النتيجة الإجمالية';
+
+  @override
+  String get topicBreakdown => 'درجات الموضوعات';
+
+  @override
+  String get mockSummaryEmpty => 'لا توجد تقييمات للمقابلة التجريبية.';
+
+  @override
+  String get practiceThisTopic => 'تدرب على هذا الموضوع';
+
+  @override
+  String mockReviewCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# سؤال للمراجعة',
+      many: '# سؤالًا للمراجعة',
+      few: '# أسئلة للمراجعة',
+      two: 'سؤالان للمراجعة',
+      one: 'سؤال واحد للمراجعة',
+      zero: 'لا توجد أسئلة للمراجعة',
+    );
+    return '$_temp0';
+  }
 }
