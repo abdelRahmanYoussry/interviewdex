@@ -1,0 +1,149 @@
+{
+  "id": "behavioral",
+  "interviewCards": [
+    {
+      "id": "tell_me_about_yourself",
+      "stage": "intro",
+      "difficulty": "junior",
+      "question": {
+        "en": "Could you tell me about yourself?"
+      },
+      "keyPoints": [
+        {
+          "en": "Give a short summary of relevant experience."
+        },
+        {
+          "en": "Mention one useful skill or project."
+        },
+        {
+          "en": "Connect your background to the role."
+        }
+      ],
+      "answer": {
+        "en": "I am a junior Flutter developer who has built small mobile features with Dart. Recently, I completed a settings screen and added tests for its main interactions. I enjoy breaking problems into clear steps, and I am interested in this role because I would like to help build useful products with a collaborative team."
+      },
+      "followUp": {
+        "en": "Which project best shows the skills you just mentioned?"
+      },
+      "commonMistake": {
+        "en": "Do not give a long personal history that is unrelated to the role."
+      },
+      "fillInTemplate": {
+        "template": {
+          "en": "I am a {experience} developer who has worked with {technology}. Recently, I {achievement}. I enjoy {strength}, and I am interested in this role because {motivation}."
+        },
+        "fields": [
+          {
+            "id": "experience",
+            "label": {
+              "en": "Your experience"
+            },
+            "placeholder": {
+              "en": "a junior mobile"
+            }
+          },
+          {
+            "id": "technology",
+            "label": {
+              "en": "A relevant technology"
+            },
+            "placeholder": {
+              "en": "Flutter and Dart"
+            }
+          },
+          {
+            "id": "achievement",
+            "label": {
+              "en": "A recent achievement"
+            },
+            "placeholder": {
+              "en": "built an app feature"
+            }
+          },
+          {
+            "id": "strength",
+            "label": {
+              "en": "A work strength"
+            },
+            "placeholder": {
+              "en": "solving problems with a team"
+            }
+          },
+          {
+            "id": "motivation",
+            "label": {
+              "en": "Your reason for applying"
+            },
+            "placeholder": {
+              "en": "the product solves a problem I care about"
+            }
+          }
+        ]
+      },
+      "source": "Reason: This card practices a concise introduction connected to a specific role."
+    },
+    {
+      "id": "difficult_bug",
+      "stage": "behavioral",
+      "difficulty": "mid",
+      "question": {
+        "en": "Tell me about a difficult bug you fixed."
+      },
+      "keyPoints": [
+        {
+          "en": "Briefly explain the situation and impact."
+        },
+        {
+          "en": "Describe the steps you took to find the cause."
+        },
+        {
+          "en": "Share the result and what you learned."
+        }
+      ],
+      "answer": {
+        "en": "On a recent project, users sometimes saw old data after saving a form. I reproduced the issue and traced it to a screen that did not refresh its state after the save completed. I updated the flow to refresh the data and added a test for that case. The screen then showed the saved values, and I learned to test the full update flow."
+      },
+      "followUp": {
+        "en": "How did you decide which debugging step to try first?"
+      },
+      "commonMistake": {
+        "en": "Do not blame a teammate or describe a bug without explaining your own actions."
+      },
+      "fillInTemplate": {
+        "template": {
+          "en": "On one project, users sometimes saw {problem}. I reproduced it and checked the logs to narrow it down to {cause}. I changed {solution}, then tested the affected flow. The issue stopped, and I learned to add a test for this case."
+        },
+        "fields": [
+          {
+            "id": "problem",
+            "label": {
+              "en": "The user-visible problem"
+            },
+            "placeholder": {
+              "en": "a screen that showed stale data"
+            }
+          },
+          {
+            "id": "cause",
+            "label": {
+              "en": "The cause"
+            },
+            "placeholder": {
+              "en": "a missed state refresh"
+            }
+          },
+          {
+            "id": "solution",
+            "label": {
+              "en": "Your fix"
+            },
+            "placeholder": {
+              "en": "updating the state after saving"
+            }
+          }
+        ]
+      },
+      "source": "Reason: This card practices explaining one debugging situation, actions, and result."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "id": "architecture_solid",
+  "interviewCards": [
+    {
+      "id": "clean_architecture_layers",
+      "stage": "technical",
+      "difficulty": "mid",
+      "question": {
+        "en": "How do you apply Clean Architecture in a Flutter app?"
+      },
+      "keyPoints": [
+        {
+          "en": "Separate presentation, domain, and data responsibilities."
+        },
+        {
+          "en": "Keep domain rules independent of Flutter and data sources."
+        },
+        {
+          "en": "Use abstractions so outer layers can implement inner-layer needs."
+        }
+      ],
+      "answer": {
+        "en": "I separate the UI, business rules, and data access into clear layers. The domain layer contains the important rules and does not depend on Flutter widgets or a specific API. Repositories let the feature use data without tying its rules to one source."
+      },
+      "followUp": {
+        "en": "How do you decide whether a feature needs a use case?"
+      },
+      "commonMistake": {
+        "en": "Do not add layers that only pass data through without improving separation or clarity."
+      },
+      "source": "https://docs.flutter.dev/app-architecture"
+    },
+    {
+      "id": "single_responsibility",
+      "stage": "technical",
+      "difficulty": "mid",
+      "question": {
+        "en": "What does the Single Responsibility Principle mean in practice?"
+      },
+      "keyPoints": [
+        {
+          "en": "A unit should have one focused reason to change."
+        },
+        {
+          "en": "Keep unrelated responsibilities in separate units."
+        },
+        {
+          "en": "Use cohesion and change impact to guide boundaries."
+        }
+      ],
+      "answer": {
+        "en": "I try to give a class or function one clear responsibility and one main reason to change. For example, a widget should not also parse API responses and decide business rules. I use this principle to make changes easier to understand and test, not to create a class for every line."
+      },
+      "followUp": {
+        "en": "Can following this principle too strictly make a design worse?"
+      },
+      "commonMistake": {
+        "en": "Do not define the principle as a rule that every class can have only one method."
+      },
+      "source": "Reason: This card asks how to separate responsibilities to limit unrelated reasons for changing a class."
+    }
+  ]
+}

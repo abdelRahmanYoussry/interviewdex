@@ -1,0 +1,81 @@
+{
+  "id": "flutter",
+  "name": {
+    "en": "Flutter"
+  },
+  "description": {
+    "en": "Build and explain Flutter applications with confidence."
+  },
+  "icon": "track_icon.png",
+  "sourceHosts": [
+    "dart.dev",
+    "docs.flutter.dev",
+    "bloclibrary.dev",
+    "pub.dev"
+  ],
+  "topics": [
+    {
+      "id": "flutter_basics",
+      "name": {
+        "en": "Flutter basics"
+      },
+      "file": "flutter_basics.json"
+    },
+    {
+      "id": "dart_language",
+      "name": {
+        "en": "Dart language"
+      },
+      "file": "dart_language.json"
+    },
+    {
+      "id": "state_management",
+      "name": {
+        "en": "State management"
+      },
+      "file": "state_management.json"
+    },
+    {
+      "id": "architecture_solid",
+      "name": {
+        "en": "Architecture and SOLID"
+      },
+      "file": "architecture_solid.json"
+    },
+    {
+      "id": "testing",
+      "name": {
+        "en": "Testing"
+      },
+      "file": "testing.json"
+    },
+    {
+      "id": "networking_performance",
+      "name": {
+        "en": "Networking and performance"
+      },
+      "file": "networking_performance.json"
+    },
+    {
+      "id": "general_programming",
+      "name": {
+        "en": "General programming"
+      },
+      "file": "general_programming.json"
+    },
+    {
+      "id": "live_coding",
+      "name": {
+        "en": "Live coding"
+      },
+      "file": "live_coding.json"
+    },
+    {
+      "id": "behavioral",
+      "name": {
+        "en": "Behavioural (HR) questions"
+      },
+      "file": "behavioral.json"
+    }
+  ]
+}

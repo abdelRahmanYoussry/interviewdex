@@ -1,0 +1,63 @@
+{
+  "id": "general_programming",
+  "interviewCards": [
+    {
+      "id": "time_complexity",
+      "stage": "technical",
+      "difficulty": "junior",
+      "question": {
+        "en": "What does time complexity describe?"
+      },
+      "keyPoints": [
+        {
+          "en": "It describes how an algorithm's work grows with input size."
+        },
+        {
+          "en": "It is commonly expressed with Big O notation."
+        },
+        {
+          "en": "It focuses on growth, not exact elapsed time."
+        }
+      ],
+      "answer": {
+        "en": "Time complexity describes how the amount of work grows as the input gets larger. I often use Big O notation to discuss that growth. It does not tell me the exact number of milliseconds on a specific machine."
+      },
+      "followUp": {
+        "en": "What is the time complexity of searching an unsorted list?"
+      },
+      "commonMistake": {
+        "en": "Do not confuse Big O growth with a guaranteed runtime in seconds."
+      },
+      "source": "Reason: This card asks how algorithm work grows with input size, rather than elapsed runtime."
+    },
+    {
+      "id": "hash_map_use",
+      "stage": "technical",
+      "difficulty": "mid",
+      "question": {
+        "en": "When would you use a map instead of a list?"
+      },
+      "keyPoints": [
+        {
+          "en": "A map stores values under keys."
+        },
+        {
+          "en": "It supports direct lookup when the key is known."
+        },
+        {
+          "en": "Choose it when key-based access fits the data."
+        }
+      ],
+      "answer": {
+        "en": "I use a map when I need to find a value by a meaningful key, such as a user ID. That makes the code clearer than searching a list each time. If order or repeated values matter more, a list may be a better fit."
+      },
+      "followUp": {
+        "en": "What should you consider if two records can have the same key?"
+      },
+      "commonMistake": {
+        "en": "Do not assume that a map is the best choice for every collection."
+      },
+      "source": "Reason: This card compares key-based lookup in maps with ordered or repeated values in lists."
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/abdelRahmanYoussry/interviewdex/blob/main/assets/tracks/schemas/topic.schema.json",
+  "title": "InterviewDex topic content",
+  "type": "object",
+  "required": ["id", "interviewCards"],
+  "properties": {
+    "id": { "$ref": "#/$defs/id" },
+    "interviewCards": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/question" }
+    },
+    "quiz": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "bugHunts": {
+      "type": "array",
+      "items": { "type": "object" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$"
+    },
+    "localizedText": {
+      "type": "object",
+      "required": ["en"],
+      "patternProperties": {
+        "^[a-z]{2}(-[A-Z]{2})?$": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "completeLocalizedText": {
+      "type": "object",
+      "required": ["en"],
+      "patternProperties": {
+        "^[a-z]{2}(-[A-Z]{2})?$": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^{}]+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "question": {
+      "type": "object",
+      "required": [
+        "id",
+        "stage",
+        "difficulty",
+        "source",
+        "question",
+        "keyPoints",
+        "answer",
+        "followUp",
+        "commonMistake"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "stage": {
+          "enum": ["intro", "behavioral", "technical", "liveCoding"]
+        },
+        "difficulty": {
+          "enum": ["junior", "mid", "senior"]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300,
+          "pattern": "^(Reason: .+|https://\\S+)$"
+        },
+        "question": { "$ref": "#/$defs/localizedText" },
+        "keyPoints": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/localizedText" }
+        },
+        "answer": { "$ref": "#/$defs/localizedText" },
+        "followUp": { "$ref": "#/$defs/localizedText" },
+        "commonMistake": { "$ref": "#/$defs/localizedText" },
+        "fillInTemplate": { "$ref": "#/$defs/fillInTemplate" },
+        "liveCoding": { "$ref": "#/$defs/liveCoding" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "stage": { "const": "liveCoding" } },
+            "required": ["stage"]
+          },
+          "then": { "required": ["liveCoding"] },
+          "else": { "not": { "required": ["liveCoding"] } }
+        },
+        {
+          "if": {
+            "properties": { "fillInTemplate": { "type": "object" } },
+            "required": ["fillInTemplate"]
+          },
+          "then": {
+            "properties": {
+              "answer": {
+                "$ref": "#/$defs/completeLocalizedText"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "stage": { "const": "behavioral" } },
+            "required": ["stage"]
+          },
+          "then": {
+            "properties": {
+              "answer": {
+                "$ref": "#/$defs/completeLocalizedText"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "fillInTemplate": {
+      "type": "object",
+      "required": ["template", "fields"],
+      "properties": {
+        "template": { "$ref": "#/$defs/localizedText" },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "placeholder"],
+            "properties": {
+              "id": { "$ref": "#/$defs/id" },
+              "label": { "$ref": "#/$defs/localizedText" },
+              "placeholder": { "$ref": "#/$defs/localizedText" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "liveCoding": {
+      "type": "object",
+      "required": ["language", "solution", "steps", "complexity"],
+      "properties": {
+        "language": { "type": "string", "minLength": 1 },
+        "solution": { "type": "string", "minLength": 1 },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/localizedText" }
+        },
+        "complexity": {
+          "type": "object",
+          "required": ["time", "space"],
+          "properties": {
+            "time": { "$ref": "#/$defs/localizedText" },
+            "space": { "$ref": "#/$defs/localizedText" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

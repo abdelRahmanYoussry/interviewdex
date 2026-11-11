@@ -1,0 +1,63 @@
+{
+  "id": "state_management",
+  "interviewCards": [
+    {
+      "id": "state_management_choice",
+      "stage": "technical",
+      "difficulty": "mid",
+      "question": {
+        "en": "How do you choose a state-management approach for a Flutter feature?"
+      },
+      "keyPoints": [
+        {
+          "en": "Start with the size and lifetime of the state."
+        },
+        {
+          "en": "Consider whether other widgets need to share it."
+        },
+        {
+          "en": "Prefer a simple approach that the team can test and maintain."
+        }
+      ],
+      "answer": {
+        "en": "I first identify how long the state should live and which parts of the app need it. For state used by one small widget, local state may be enough. For shared or more complex behavior, I choose a team-supported solution that is easy to test and maintain."
+      },
+      "followUp": {
+        "en": "What signs tell you that local widget state is no longer enough?"
+      },
+      "commonMistake": {
+        "en": "Do not choose a state-management package only because it is popular."
+      },
+      "source": "https://docs.flutter.dev/data-and-backend/state-mgmt/options"
+    },
+    {
+      "id": "cubit_vs_bloc",
+      "stage": "technical",
+      "difficulty": "mid",
+      "question": {
+        "en": "How would you explain the difference between Cubit and Bloc?"
+      },
+      "keyPoints": [
+        {
+          "en": "Cubit changes state through methods."
+        },
+        {
+          "en": "Bloc changes state in response to events."
+        },
+        {
+          "en": "Both provide streams of state and support testable logic."
+        }
+      ],
+      "answer": {
+        "en": "Cubit exposes methods that directly emit new states. Bloc receives events and maps them to states. I choose between them based on whether explicit event handling is useful for the feature; both keep UI and business logic separate."
+      },
+      "followUp": {
+        "en": "How would you test a Cubit method?"
+      },
+      "commonMistake": {
+        "en": "Do not describe Cubit as having no state stream or Bloc as a UI widget."
+      },
+      "source": "https://bloclibrary.dev/bloc-concepts/"
+    }
+  ]
+}

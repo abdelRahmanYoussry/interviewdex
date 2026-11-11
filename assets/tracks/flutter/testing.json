@@ -1,0 +1,63 @@
+{
+  "id": "testing",
+  "interviewCards": [
+    {
+      "id": "flutter_test_types",
+      "stage": "technical",
+      "difficulty": "junior",
+      "question": {
+        "en": "What is the difference between unit, widget, and integration tests in Flutter?"
+      },
+      "keyPoints": [
+        {
+          "en": "Unit tests check a small unit of logic."
+        },
+        {
+          "en": "Widget tests check UI behavior in a test environment."
+        },
+        {
+          "en": "Integration tests check a larger app flow on a device or browser."
+        }
+      ],
+      "answer": {
+        "en": "A unit test checks a small piece of logic in isolation. A widget test builds widgets and verifies their behavior without launching the whole app. An integration test checks a larger user flow on a target platform."
+      },
+      "followUp": {
+        "en": "Which test would you use to check that a button updates a Cubit state?"
+      },
+      "commonMistake": {
+        "en": "Do not say that widget tests require testing on a physical device."
+      },
+      "source": "https://docs.flutter.dev/testing/overview"
+    },
+    {
+      "id": "bloc_testing",
+      "stage": "technical",
+      "difficulty": "mid",
+      "question": {
+        "en": "How do you test a Cubit or Bloc?"
+      },
+      "keyPoints": [
+        {
+          "en": "Arrange dependencies and initial state."
+        },
+        {
+          "en": "Exercise a method or dispatch an event."
+        },
+        {
+          "en": "Assert the ordered states and relevant interactions."
+        }
+      ],
+      "answer": {
+        "en": "I provide the Cubit with controlled dependencies and call the method being tested. Then I assert the states it emits in order, including loading, success, or error when those apply. I also verify important repository calls without testing implementation details that do not affect behavior."
+      },
+      "followUp": {
+        "en": "When would you use a fake instead of a mock?"
+      },
+      "commonMistake": {
+        "en": "Do not test only the final state if the sequence of states is part of the user experience."
+      },
+      "source": "https://pub.dev/packages/bloc_test"
+    }
+  ]
+}

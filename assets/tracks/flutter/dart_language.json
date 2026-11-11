@@ -1,0 +1,63 @@
+{
+  "id": "dart_language",
+  "interviewCards": [
+    {
+      "id": "final_vs_const",
+      "stage": "technical",
+      "difficulty": "junior",
+      "question": {
+        "en": "What is the difference between final and const in Dart?"
+      },
+      "keyPoints": [
+        {
+          "en": "Both prevent reassignment of the variable."
+        },
+        {
+          "en": "A final value is assigned once, possibly at runtime."
+        },
+        {
+          "en": "A const value must be known at compile time."
+        }
+      ],
+      "answer": {
+        "en": "Both final and const variables can be assigned only once. A final variable can get its value at runtime, for example from an API response. A const value must be known at compile time, and constant objects can be canonicalized."
+      },
+      "followUp": {
+        "en": "Can a const object contain a field declared final?"
+      },
+      "commonMistake": {
+        "en": "Do not say that final and const mean exactly the same thing."
+      },
+      "source": "https://dart.dev/language/variables"
+    },
+    {
+      "id": "null_safety",
+      "stage": "technical",
+      "difficulty": "mid",
+      "question": {
+        "en": "How does null safety help in Dart?"
+      },
+      "keyPoints": [
+        {
+          "en": "Types are non-nullable unless marked with a question mark."
+        },
+        {
+          "en": "Nullable values must be checked or handled."
+        },
+        {
+          "en": "Null safety catches many errors before runtime."
+        }
+      ],
+      "answer": {
+        "en": "In Dart, a type is non-nullable by default. I add a question mark when a value may be null, and then I must handle that case before using it as a non-null value. This helps catch many null errors during analysis instead of after release."
+      },
+      "followUp": {
+        "en": "When is the null assertion operator reasonable to use?"
+      },
+      "commonMistake": {
+        "en": "Do not use the null assertion operator as a replacement for checking uncertain data."
+      },
+      "source": "https://dart.dev/null-safety/understanding-null-safety"
+    }
+  ]
+}

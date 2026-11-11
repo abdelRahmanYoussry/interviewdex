@@ -1,0 +1,109 @@
+{
+  "id": "live_coding",
+  "interviewCards": [
+    {
+      "id": "reverse_string",
+      "stage": "liveCoding",
+      "difficulty": "junior",
+      "question": {
+        "en": "Write a Dart function that returns a string with its characters in reverse order."
+      },
+      "keyPoints": [
+        {
+          "en": "Clarify whether an empty string is allowed."
+        },
+        {
+          "en": "Use a simple loop or a clear collection operation."
+        },
+        {
+          "en": "State the time and space complexity."
+        }
+      ],
+      "answer": {
+        "en": "I would confirm that an empty string should return an empty string. Then I can iterate from the last character to the first and build the result. This takes linear time and uses space for the returned string."
+      },
+      "followUp": {
+        "en": "How would you handle Unicode grapheme clusters instead of individual code units?"
+      },
+      "commonMistake": {
+        "en": "Do not reverse UTF-16 code units and claim it always reverses user-perceived characters correctly."
+      },
+      "liveCoding": {
+        "language": "dart",
+        "solution": "String reverseString(String value) {\n  final reversed = StringBuffer();\n  for (var index = value.length - 1; index >= 0; index--) {\n    reversed.write(value[index]);\n  }\n  return reversed.toString();\n}",
+        "steps": [
+          {
+            "en": "Confirm the expected behavior for an empty input."
+          },
+          {
+            "en": "Create a buffer for the result."
+          },
+          {
+            "en": "Walk backward through the input and append each character."
+          }
+        ],
+        "complexity": {
+          "time": {
+            "en": "O(n)"
+          },
+          "space": {
+            "en": "O(n)"
+          }
+        }
+      },
+      "source": "Reason: This coding exercise practices iterating over a string in reverse and discussing Unicode limits."
+    },
+    {
+      "id": "count_even_numbers",
+      "stage": "liveCoding",
+      "difficulty": "junior",
+      "question": {
+        "en": "Write a Dart function that counts the even integers in a list."
+      },
+      "keyPoints": [
+        {
+          "en": "Visit each value once."
+        },
+        {
+          "en": "Use the remainder operator to check even values."
+        },
+        {
+          "en": "Explain the runtime and extra space."
+        }
+      ],
+      "answer": {
+        "en": "I would start a counter at zero and inspect each number once. A number is even when its remainder after division by two is zero. The function takes linear time and constant extra space."
+      },
+      "followUp": {
+        "en": "How would you return the even numbers instead of their count?"
+      },
+      "commonMistake": {
+        "en": "Do not stop after the first even value or count odd values by mistake."
+      },
+      "liveCoding": {
+        "language": "dart",
+        "solution": "int countEvenNumbers(List<int> numbers) {\n  var count = 0;\n  for (final number in numbers) {\n    if (number % 2 == 0) count++;\n  }\n  return count;\n}",
+        "steps": [
+          {
+            "en": "Initialize a counter to zero."
+          },
+          {
+            "en": "Check each number with the remainder operator."
+          },
+          {
+            "en": "Return the counter after the loop."
+          }
+        ],
+        "complexity": {
+          "time": {
+            "en": "O(n)"
+          },
+          "space": {
+            "en": "O(1)"
+          }
+        }
+      },
+      "source": "Reason: This coding exercise practices counting values with a modulo condition."
+    }
+  ]
+}

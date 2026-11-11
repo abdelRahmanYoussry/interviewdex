@@ -1,0 +1,63 @@
+{
+  "id": "networking_performance",
+  "interviewCards": [
+    {
+      "id": "api_error_handling",
+      "stage": "technical",
+      "difficulty": "mid",
+      "question": {
+        "en": "How do you handle errors from an API request in a Flutter app?"
+      },
+      "keyPoints": [
+        {
+          "en": "Represent loading, success, and failure clearly."
+        },
+        {
+          "en": "Handle expected network and response errors."
+        },
+        {
+          "en": "Show a useful recovery option without exposing technical details."
+        }
+      ],
+      "answer": {
+        "en": "I model loading, success, and failure so the UI can respond clearly. I handle expected cases such as timeouts, connectivity problems, and unsuccessful responses. I show a useful message and, when possible, let the user retry, while keeping technical details in logs."
+      },
+      "followUp": {
+        "en": "How would you avoid showing an error for an outdated request?"
+      },
+      "commonMistake": {
+        "en": "Do not catch every error and report success with empty data."
+      },
+      "source": "https://docs.flutter.dev/cookbook/networking/fetch-data"
+    },
+    {
+      "id": "list_performance",
+      "stage": "technical",
+      "difficulty": "mid",
+      "question": {
+        "en": "How would you improve the performance of a long scrolling list?"
+      },
+      "keyPoints": [
+        {
+          "en": "Build visible items lazily with a builder."
+        },
+        {
+          "en": "Keep row widgets focused and avoid unnecessary rebuilds."
+        },
+        {
+          "en": "Measure performance before optimizing further."
+        }
+      ],
+      "answer": {
+        "en": "I use a lazy builder so the app does not create every row at once. I keep each row focused and avoid rebuilding unrelated parts of the screen. Then I profile the app to find the real bottleneck before making more changes."
+      },
+      "followUp": {
+        "en": "When might a fixed item extent help a scrolling list?"
+      },
+      "commonMistake": {
+        "en": "Do not assume that adding const everywhere will solve every performance issue."
+      },
+      "source": "https://docs.flutter.dev/perf/best-practices"
+    }
+  ]
+}

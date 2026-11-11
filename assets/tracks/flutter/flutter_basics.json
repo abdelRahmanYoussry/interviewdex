@@ -1,0 +1,63 @@
+{
+  "id": "flutter_basics",
+  "interviewCards": [
+    {
+      "id": "widget_tree",
+      "stage": "technical",
+      "difficulty": "junior",
+      "question": {
+        "en": "What is a widget in Flutter?"
+      },
+      "keyPoints": [
+        {
+          "en": "A widget describes part of the user interface."
+        },
+        {
+          "en": "Widgets are immutable descriptions."
+        },
+        {
+          "en": "Flutter builds the interface from a widget tree."
+        }
+      ],
+      "answer": {
+        "en": "A widget is an immutable description of part of the user interface. Widgets can represent layout, text, buttons, or behavior. Flutter combines them into a tree and uses that tree to build the screen."
+      },
+      "followUp": {
+        "en": "What is the difference between a widget and an Element?"
+      },
+      "commonMistake": {
+        "en": "Do not say that a widget is the rendered pixel or the mutable screen itself."
+      },
+      "source": "https://docs.flutter.dev/ui"
+    },
+    {
+      "id": "stateful_vs_stateless",
+      "stage": "technical",
+      "difficulty": "junior",
+      "question": {
+        "en": "When would you choose StatefulWidget instead of StatelessWidget?"
+      },
+      "keyPoints": [
+        {
+          "en": "Use StatefulWidget when the widget owns changing local state."
+        },
+        {
+          "en": "Use StatelessWidget when its output depends only on its inputs."
+        },
+        {
+          "en": "State can also be managed outside the widget."
+        }
+      ],
+      "answer": {
+        "en": "I choose StatefulWidget when the widget needs to keep changing local state, such as a selected tab. I use StatelessWidget when the UI is determined by its inputs. For larger or shared state, I can keep the state in a separate state-management solution."
+      },
+      "followUp": {
+        "en": "What happens when setState is called?"
+      },
+      "commonMistake": {
+        "en": "Do not claim that every changing value must be stored in a StatefulWidget."
+      },
+      "source": "https://docs.flutter.dev/ui/interactivity"
+    }
+  ]
+}
