@@ -11,6 +11,7 @@ import '../../domain/entities/saved_practice_session.dart';
 import '../../domain/entities/track.dart';
 import '../cubits/practice_session_cubit.dart';
 import '../cubits/track_cubit.dart';
+import '../widgets/localized_content_text.dart';
 
 class TrackRoute extends StatefulWidget {
   const TrackRoute({required this.cubit, super.key});
@@ -48,14 +49,16 @@ class TrackScreen extends StatelessWidget {
     return BlocBuilder<TrackCubit, TrackState>(
       builder: (context, state) {
         final title = switch (state) {
-          TrackDashboard(:final track) => track.name.resolve(
-            Localizations.localeOf(context).languageCode,
+          TrackDashboard(:final track) => LocalizedContentText(
+            track.name,
+            languageCode: Localizations.localeOf(context).languageCode,
+            alignToUiStart: true,
           ),
-          TrackPicker() => strings.trackPickerTitle,
-          TrackLoading() || TrackLoadFailure() => strings.startInterview,
+          TrackPicker() => Text(strings.trackPickerTitle),
+          TrackLoading() || TrackLoadFailure() => Text(strings.startInterview),
         };
         return Scaffold(
-          appBar: AppBar(title: Text(title)),
+          appBar: AppBar(title: title),
           body: SafeArea(
             child: switch (state) {
               TrackLoading() => const Center(
@@ -93,8 +96,8 @@ class TrackScreen extends StatelessWidget {
     List<InterviewTrack> tracks,
     AppLocalizations strings,
   ) {
-    final languageCode = Localizations.localeOf(context).languageCode;
     if (tracks.isEmpty) return Center(child: Text(strings.noTracksAvailable));
+    final languageCode = Localizations.localeOf(context).languageCode;
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
@@ -114,8 +117,15 @@ class TrackScreen extends StatelessWidget {
                 color: Theme.of(context).extension<AppColors>()!.accent,
                 size: 32,
               ),
-              title: Text(track.name.resolve(languageCode)),
-              subtitle: Text(track.description.resolve(languageCode)),
+              title: LocalizedContentText(
+                track.name,
+                languageCode: languageCode,
+                alignToUiStart: true,
+              ),
+              subtitle: LocalizedContentText(
+                track.description,
+                languageCode: languageCode,
+              ),
               onTap: () => context.read<TrackCubit>().selectTrack(track),
             ),
           ),
@@ -162,13 +172,18 @@ class TrackScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          track.name.resolve(languageCode),
+                        LocalizedContentText(
+                          track.name,
+                          languageCode: languageCode,
+                          alignToUiStart: true,
                           style: Theme.of(context).textTheme.headlineSmall
                               ?.copyWith(fontWeight: FontWeight.w700),
                         ),
                         const SizedBox(height: 4),
-                        Text(track.description.resolve(languageCode)),
+                        LocalizedContentText(
+                          track.description,
+                          languageCode: languageCode,
+                        ),
                       ],
                     ),
                   ),
@@ -227,8 +242,10 @@ class TrackScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(
-                          topic.name.resolve(languageCode),
+                        LocalizedContentText(
+                          topic.name,
+                          languageCode: languageCode,
+                          alignToUiStart: true,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 4),

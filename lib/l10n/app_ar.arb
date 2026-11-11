@@ -3,6 +3,8 @@
   "appTitle": "InterviewDex",
   "tagline": "أسئلة مقابلات حقيقية لمطوري Flutter. مبني باستخدام Flutter.",
   "settings": "الإعدادات",
+  "githubRepo": "مستودع GitHub",
+  "githubOpenFailure": "تعذر فتح مستودع GitHub.",
   "language": "اللغة",
   "languageSystem": "حسب النظام",
   "languageEnglish": "الإنجليزية",
@@ -12,7 +14,45 @@
   "themeLight": "فاتح",
   "themeDark": "داكن",
   "homeWelcome": "استعد لمقابلتك القادمة",
-  "startInterview": "ابدأ الاستعداد",
+  "startInterview": "تدرب على المقابلة",
+  "quickQuiz": "اختبار سريع",
+  "quizSubtitle": "أجب عن أسئلة قصيرة وتعلّم بعد كل إجابة.",
+  "quizPickerTitle": "اختر اختبارًا",
+  "quizAllTopics": "كل الموضوعات",
+  "quizResume": "استكمل الاختبار",
+  "quizLoadFailure": "تعذر تحميل الاختبار. حاول مرة أخرى.",
+  "quizCorrect": "إجابة صحيحة",
+  "quizIncorrect": "ليست صحيحة",
+  "quizCorrectAnswer": "الإجابة الصحيحة",
+  "quizYourAnswer": "إجابتك",
+  "quizWhy": "السبب",
+  "quizTip": "معلومة إضافية",
+  "quizNext": "التالي",
+  "quizTrue": "صحيح",
+  "quizFalse": "خطأ",
+  "quizResults": "نتيجة الاختبار",
+  "quizRetryWrong": "أعد الأسئلة الخاطئة",
+  "backToHome": "العودة للرئيسية",
+  "quizQuestionProgress": "السؤال {current} من {total}",
+  "@quizQuestionProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "quizScore": "{score} إجابة صحيحة من {total, plural, =0{لا توجد أسئلة} one{سؤال واحد ({total})} two{سؤالين ({total})} few{{total} أسئلة} many{{total} سؤالًا} other{{total} سؤال}}",
+  "@quizScore": {
+    "placeholders": {
+      "score": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "quizWrongCount": "{count, plural, =0{لا توجد إجابات خاطئة} one{إجابة خاطئة واحدة ({count})} two{إجابتان خاطئتان ({count})} few{{count} إجابات خاطئة} many{{count} إجابة خاطئة} other{{count} إجابة خاطئة}}",
+  "@quizWrongCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
   "settingsDescription": "اختر اللغة والمظهر المناسبين لك.",
   "savedAutomatically": "يتم حفظ اختياراتك على هذا الجهاز.",
   "trackPickerTitle": "اختر المسار",
@@ -20,15 +60,15 @@
   "noTracksAvailable": "لا توجد مسارات مقابلات متاحة بعد.",
   "trackLoadFailure": "تعذر تحميل مسارات المقابلات.",
   "retry": "حاول مرة أخرى",
-  "masteryProgress": "{mastered, plural, zero{لم تتقن أي سؤال} one{أتقنت سؤالًا واحدًا} two{أتقنت سؤالين} few{أتقنت # أسئلة} many{أتقنت # سؤالًا} other{أتقنت # سؤال}} من أصل {total, plural, zero{لا توجد أسئلة} one{سؤال واحد} two{سؤالان} few{# أسئلة} many{# سؤالًا} other{# سؤال}}",
+  "masteryProgress": "{mastered, plural, zero{لم تتقن أي سؤال} one{أتقنت سؤالًا واحدًا ({mastered})} two{أتقنت سؤالين ({mastered})} few{أتقنت {mastered} أسئلة} many{أتقنت {mastered} سؤالًا} other{أتقنت {mastered} سؤال}} من أصل {total, plural, zero{لا توجد أسئلة} one{سؤال واحد ({total})} two{سؤالان ({total})} few{{total} أسئلة} many{{total} سؤالًا} other{{total} سؤال}}",
   "startMockInterview": "ابدأ مقابلة تجريبية",
   "mockInterview": "مقابلة تجريبية",
   "practiceTitle": "تدرب",
   "topics": "الموضوعات",
-  "topicCardCount": "{count, plural, zero{لا توجد أسئلة} one{سؤال واحد} two{سؤالان} few{# أسئلة} many{# سؤالًا} other{# سؤال}}",
+  "topicCardCount": "{count, plural, zero{لا توجد أسئلة} one{سؤال واحد ({count})} two{سؤالان ({count})} few{{count} أسئلة} many{{count} سؤالًا} other{{count} سؤال}}",
   "practiceTopic": "تدرب على الموضوع",
-  "questionProgress": "السؤال {current} من {total, plural, zero{لا توجد أسئلة} one{سؤال واحد} two{سؤالان} few{# أسئلة} many{# سؤالًا} other{# سؤال}}",
-  "nailedItStreak": "سلسلة الإجابات المتقنة: {count, plural, zero{لا توجد إجابات متقنة} one{إجابة متقنة واحدة} two{إجابتان متقنتان} few{# إجابات متقنة} many{# إجابة متقنة} other{# إجابة متقنة}} من 2",
+  "questionProgress": "السؤال {current} من {total}",
+  "nailedItStreak": "سلسلة الإجابات المتقنة: {count, plural, zero{لا توجد إجابات متقنة} one{إجابة متقنة واحدة ({count})} two{إجابتان متقنتان ({count})} few{{count} إجابات متقنة} many{{count} إجابة متقنة} other{{count} إجابة متقنة}} من 2",
   "answerFramework": "إطار الإجابة",
   "resumePractice": "استكمل التدريب",
   "resumeMockInterview": "استكمل المقابلة التجريبية",
@@ -55,7 +95,7 @@
   "topicBreakdown": "درجات الموضوعات",
   "mockSummaryEmpty": "لا توجد تقييمات للمقابلة التجريبية.",
   "practiceThisTopic": "تدرب على هذا الموضوع",
-  "mockReviewCount": "{count, plural, zero{لا توجد أسئلة للمراجعة} one{سؤال واحد للمراجعة} two{سؤالان للمراجعة} few{# أسئلة للمراجعة} many{# سؤالًا للمراجعة} other{# سؤال للمراجعة}}",
+  "mockReviewCount": "{count, plural, zero{لا توجد أسئلة للمراجعة} one{سؤال واحد للمراجعة ({count})} two{سؤالان للمراجعة ({count})} few{{count} أسئلة للمراجعة} many{{count} سؤالًا للمراجعة} other{{count} سؤال للمراجعة}}",
   "@mockReviewCount": {
     "placeholders": {
       "count": {"type": "int"}

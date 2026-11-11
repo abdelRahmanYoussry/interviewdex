@@ -59,5 +59,81 @@
       },
       "source": "Reason: This card asks how to separate responsibilities to limit unrelated reasons for changing a class."
     }
+  ],
+  "quiz": [
+    {
+      "id": "quiz_arch_domain_independence",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://docs.flutter.dev/app-architecture",
+      "question": {"en": "Which dependency direction helps keep domain rules independent?"},
+      "options": [
+        {"en": "Outer layers depend on abstractions owned by inner layers"},
+        {"en": "Inner layers import concrete widgets from outer layers"},
+        {"en": "Every layer imports every other layer directly"},
+        {"en": "The domain depends on a specific remote API client"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Inner business rules stay independent when outer details implement their abstractions."},
+      "tip": {"en": "This makes it easier to replace data sources without changing domain rules."}
+    },
+    {
+      "id": "quiz_arch_single_responsibility",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "Reason: This quiz checks how a focused responsibility limits unrelated reasons for a unit to change.",
+      "question": {"en": "What is a useful sign that a class has too many responsibilities?"},
+      "options": [
+        {"en": "Unrelated changes often require editing the same class"},
+        {"en": "The class has a descriptive name and one public method"},
+        {"en": "The class is used by more than one feature"},
+        {"en": "The class has a test for each public behavior"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Unrelated reasons to change can indicate that responsibilities are coupled."},
+      "tip": {"en": "Split responsibilities when doing so improves cohesion and change isolation."}
+    },
+    {
+      "id": "quiz_arch_repository_role",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://docs.flutter.dev/app-architecture",
+      "question": {"en": "What is a common role of a repository in an app architecture?"},
+      "options": [
+        {"en": "Provide data access behind a clear interface"},
+        {"en": "Draw every feature screen and handle its gestures"},
+        {"en": "Store all business rules inside a widget tree"},
+        {"en": "Replace the need to model loading and failure"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A repository separates data access details from the rest of the feature."},
+      "tip": {"en": "A repository can coordinate local and remote data sources when needed."}
+    },
+    {
+      "id": "quiz_arch_use_case_value",
+      "type": "multipleChoice",
+      "difficulty": "senior",
+      "source": "https://docs.flutter.dev/app-architecture",
+      "question": {"en": "When is a separate use case most valuable?"},
+      "options": [
+        {"en": "When a domain action needs a focused reusable boundary"},
+        {"en": "Whenever a screen contains more than one widget"},
+        {"en": "Whenever a model has a field that can be nullable"},
+        {"en": "When an API response needs to be decoded as JSON"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A use case can make meaningful domain actions explicit and independently testable."},
+      "tip": {"en": "Avoid adding a use case that only forwards arguments without adding value."}
+    },
+    {
+      "id": "quiz_arch_layer_dependency",
+      "type": "trueFalse",
+      "difficulty": "mid",
+      "source": "https://docs.flutter.dev/app-architecture",
+      "question": {"en": "A domain entity should import Flutter UI widgets to enforce a business rule."},
+      "answer": false,
+      "why": {"en": "Domain rules should not depend on presentation framework details."},
+      "tip": {"en": "Keeping the domain framework-independent supports focused unit tests."}
+    }
   ]
 }

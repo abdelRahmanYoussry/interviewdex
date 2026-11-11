@@ -16,6 +16,8 @@ abstract interface class AnalyticsService {
 
   Future<void> mockInterviewComplete();
 
+  Future<void> quickQuizComplete({required int score, required int total});
+
   Future<void> levelComplete({required String level, required int stars});
 
   Future<void> ratingSubmit();

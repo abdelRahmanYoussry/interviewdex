@@ -22,9 +22,8 @@ enum, localized-text, and key-point-count checks at runtime. A malformed track
 or topic is logged and skipped. A malformed interview card is logged and
 skipped without discarding its valid neighbors.
 
-The Flutter topics currently contain sample interview cards. They are schema
-and loader examples, not the finished interview question bank. Full content
-will be written one topic at a time for review.
+The Flutter topics contain sample interview cards and the initial Quick Quiz
+content. The quiz bank has five reviewed items for each supported topic.
 
 To add a new track, add its ID to `index.json`, create its folder and metadata,
 then add one asset line to `pubspec.yaml`, such as
@@ -55,5 +54,50 @@ then add one asset line to `pubspec.yaml`, such as
   keep the candidate's `answer` a complete example, not the template.
 - A `liveCoding` card must include a plain-string Dart code `solution`,
   localized explanation steps, and localized time and space complexity.
-- Topics may add `quiz` and `bugHunts` arrays in later phases; these optional
-  lists do not change the required `interviewCards` field.
+Topics may add optional `quiz` and `bugHunts` arrays. Quiz IDs are unique
+across the whole track, including every interview card ID.
+
+## Quiz item fields
+
+Every quiz item has `id`, `type`, `difficulty`, `source`, `question`, `why`,
+and `tip`. `type` is `multipleChoice` or `trueFalse`; difficulty is `junior`,
+`mid`, or `senior`. A source follows the same track-host URL or `Reason: `
+rules as interview cards. `why` explains the correct answer and `tip` adds one
+useful fact; both have one or two short sentences. Optional `code` is a plain
+string rendered in JetBrains Mono.
+
+Multiple choice items have four distinct localized `options` and a zero-based
+`correctIndex`. True/false items use a localized statement in `question` and a
+boolean `answer`.
+
+```json
+{
+  "id": "quiz_widget_immutability",
+  "type": "multipleChoice",
+  "difficulty": "junior",
+  "source": "https://docs.flutter.dev/ui",
+  "question": {"en": "What does a Flutter widget describe?"},
+  "options": [
+    {"en": "A configuration for part of the interface"},
+    {"en": "A mutable object holding every screen pixel"},
+    {"en": "A database record for the current route"},
+    {"en": "A platform view created for each state change"}
+  ],
+  "correctIndex": 0,
+  "why": {"en": "A widget is an immutable description of part of the user interface."},
+  "tip": {"en": "Flutter combines widgets into a tree to describe the screen."}
+}
+```
+
+```json
+{
+  "id": "quiz_const_canonicalization",
+  "type": "trueFalse",
+  "difficulty": "mid",
+  "source": "https://dart.dev/language/variables",
+  "question": {"en": "Dart can canonicalize identical compile-time constant objects."},
+  "answer": true,
+  "why": {"en": "Identical constant expressions can refer to the same canonical instance."},
+  "tip": {"en": "Use const when the value is known at compile time."}
+}
+```

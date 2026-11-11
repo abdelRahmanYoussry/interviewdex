@@ -77,7 +77,11 @@ class InterviewQuestionModel {
       id: id,
       stage: stage,
       difficulty: difficulty,
-      source: _source(json['source'], '$path.source', sourceHosts: sourceHosts),
+      source: validateSource(
+        json['source'],
+        '$path.source',
+        sourceHosts: sourceHosts,
+      ),
       question: localizedText(json['question'], '$path.question'),
       keyPoints: List.unmodifiable([
         for (var index = 0; index < keyPointsJson.length; index++)
@@ -94,7 +98,7 @@ class InterviewQuestionModel {
     );
   }
 
-  static String _source(
+  static String validateSource(
     Object? value,
     String path, {
     required Set<String> sourceHosts,

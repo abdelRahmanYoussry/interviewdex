@@ -12,11 +12,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appTitle => 'InterviewDex';
 
   @override
-  String get tagline =>
-      'أسئلة مقابلات حقيقية لمطوري Flutter. مبني باستخدام Flutter.';
+  String get tagline => 'أسئلة مقابلات حقيقية لمطوري Flutter. مبني باستخدام Flutter.';
 
   @override
   String get settings => 'الإعدادات';
+
+  @override
+  String get githubRepo => 'مستودع GitHub';
+
+  @override
+  String get githubOpenFailure => 'تعذر فتح مستودع GitHub.';
 
   @override
   String get language => 'اللغة';
@@ -46,7 +51,96 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeWelcome => 'استعد لمقابلتك القادمة';
 
   @override
-  String get startInterview => 'ابدأ الاستعداد';
+  String get startInterview => 'تدرب على المقابلة';
+
+  @override
+  String get quickQuiz => 'اختبار سريع';
+
+  @override
+  String get quizSubtitle => 'أجب عن أسئلة قصيرة وتعلّم بعد كل إجابة.';
+
+  @override
+  String get quizPickerTitle => 'اختر اختبارًا';
+
+  @override
+  String get quizAllTopics => 'كل الموضوعات';
+
+  @override
+  String get quizResume => 'استكمل الاختبار';
+
+  @override
+  String get quizLoadFailure => 'تعذر تحميل الاختبار. حاول مرة أخرى.';
+
+  @override
+  String get quizCorrect => 'إجابة صحيحة';
+
+  @override
+  String get quizIncorrect => 'ليست صحيحة';
+
+  @override
+  String get quizCorrectAnswer => 'الإجابة الصحيحة';
+
+  @override
+  String get quizYourAnswer => 'إجابتك';
+
+  @override
+  String get quizWhy => 'السبب';
+
+  @override
+  String get quizTip => 'معلومة إضافية';
+
+  @override
+  String get quizNext => 'التالي';
+
+  @override
+  String get quizTrue => 'صحيح';
+
+  @override
+  String get quizFalse => 'خطأ';
+
+  @override
+  String get quizResults => 'نتيجة الاختبار';
+
+  @override
+  String get quizRetryWrong => 'أعد الأسئلة الخاطئة';
+
+  @override
+  String get backToHome => 'العودة للرئيسية';
+
+  @override
+  String quizQuestionProgress(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String quizScore(int score, int total) {
+    String _temp0 = intl.Intl.pluralLogic(
+      total,
+      locale: localeName,
+      other: '$total سؤال',
+      many: '$total سؤالًا',
+      few: '$total أسئلة',
+      two: 'سؤالين ($total)',
+      one: 'سؤال واحد ($total)',
+      zero: 'لا توجد أسئلة',
+    );
+    return '$score إجابة صحيحة من $_temp0';
+  }
+
+  @override
+  String quizWrongCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count إجابة خاطئة',
+      many: '$count إجابة خاطئة',
+      few: '$count إجابات خاطئة',
+      two: 'إجابتان خاطئتان ($count)',
+      one: 'إجابة خاطئة واحدة ($count)',
+      zero: 'لا توجد إجابات خاطئة',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get settingsDescription => 'اختر اللغة والمظهر المناسبين لك.';
@@ -74,21 +168,21 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       mastered,
       locale: localeName,
-      other: 'أتقنت # سؤال',
-      many: 'أتقنت # سؤالًا',
-      few: 'أتقنت # أسئلة',
-      two: 'أتقنت سؤالين',
-      one: 'أتقنت سؤالًا واحدًا',
+      other: 'أتقنت $mastered سؤال',
+      many: 'أتقنت $mastered سؤالًا',
+      few: 'أتقنت $mastered أسئلة',
+      two: 'أتقنت سؤالين ($mastered)',
+      one: 'أتقنت سؤالًا واحدًا ($mastered)',
       zero: 'لم تتقن أي سؤال',
     );
     String _temp1 = intl.Intl.pluralLogic(
       total,
       locale: localeName,
-      other: '# سؤال',
-      many: '# سؤالًا',
-      few: '# أسئلة',
-      two: 'سؤالان',
-      one: 'سؤال واحد',
+      other: '$total سؤال',
+      many: '$total سؤالًا',
+      few: '$total أسئلة',
+      two: 'سؤالان ($total)',
+      one: 'سؤال واحد ($total)',
       zero: 'لا توجد أسئلة',
     );
     return '$_temp0 من أصل $_temp1';
@@ -111,11 +205,11 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# سؤال',
-      many: '# سؤالًا',
-      few: '# أسئلة',
-      two: 'سؤالان',
-      one: 'سؤال واحد',
+      other: '$count سؤال',
+      many: '$count سؤالًا',
+      few: '$count أسئلة',
+      two: 'سؤالان ($count)',
+      one: 'سؤال واحد ($count)',
       zero: 'لا توجد أسئلة',
     );
     return '$_temp0';
@@ -126,17 +220,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String questionProgress(int current, int total) {
-    String _temp0 = intl.Intl.pluralLogic(
-      total,
-      locale: localeName,
-      other: '# سؤال',
-      many: '# سؤالًا',
-      few: '# أسئلة',
-      two: 'سؤالان',
-      one: 'سؤال واحد',
-      zero: 'لا توجد أسئلة',
-    );
-    return 'السؤال $current من $_temp0';
+    return 'السؤال $current من $total';
   }
 
   @override
@@ -144,11 +228,11 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# إجابة متقنة',
-      many: '# إجابة متقنة',
-      few: '# إجابات متقنة',
-      two: 'إجابتان متقنتان',
-      one: 'إجابة متقنة واحدة',
+      other: '$count إجابة متقنة',
+      many: '$count إجابة متقنة',
+      few: '$count إجابات متقنة',
+      two: 'إجابتان متقنتان ($count)',
+      one: 'إجابة متقنة واحدة ($count)',
       zero: 'لا توجد إجابات متقنة',
     );
     return 'سلسلة الإجابات المتقنة: $_temp0 من 2';
@@ -237,11 +321,11 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# سؤال للمراجعة',
-      many: '# سؤالًا للمراجعة',
-      few: '# أسئلة للمراجعة',
-      two: 'سؤالان للمراجعة',
-      one: 'سؤال واحد للمراجعة',
+      other: '$count سؤال للمراجعة',
+      many: '$count سؤالًا للمراجعة',
+      few: '$count أسئلة للمراجعة',
+      two: 'سؤالان للمراجعة ($count)',
+      one: 'سؤال واحد للمراجعة ($count)',
       zero: 'لا توجد أسئلة للمراجعة',
     );
     return '$_temp0';

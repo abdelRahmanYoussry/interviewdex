@@ -59,5 +59,81 @@
       },
       "source": "https://pub.dev/packages/bloc_test"
     }
+  ],
+  "quiz": [
+    {
+      "id": "quiz_test_unit_scope",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "https://docs.flutter.dev/testing/overview",
+      "question": {"en": "What is a typical target of a unit test?"},
+      "options": [
+        {"en": "A small function or class tested in isolation"},
+        {"en": "A complete user journey across a running app"},
+        {"en": "A rendered widget tree with simulated interactions"},
+        {"en": "A full release build installed on a physical device"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A unit test focuses on a small unit of logic and its behavior."},
+      "tip": {"en": "Fast unit tests are useful for checking pure domain rules."}
+    },
+    {
+      "id": "quiz_test_widget_environment",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://docs.flutter.dev/testing",
+      "question": {"en": "What does a Flutter widget test provide?"},
+      "options": [
+        {"en": "A test environment to build and interact with widgets"},
+        {"en": "A physical device for every test execution"},
+        {"en": "A production server that hosts the app during tests"},
+        {"en": "A guarantee that every supported screen size is covered"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Widget tests use a test environment to build widgets and exercise UI behavior."},
+      "tip": {"en": "TestWidgetsFlutterBinding provides the framework support for widget tests."}
+    },
+    {
+      "id": "quiz_test_bloc_emissions",
+      "type": "multipleChoice",
+      "difficulty": "senior",
+      "source": "https://pub.dev/packages/bloc_test",
+      "question": {"en": "Why assert ordered states in a Cubit test?"},
+      "options": [
+        {"en": "To verify the user-visible state transition sequence"},
+        {"en": "To verify the source file uses the fewest methods"},
+        {"en": "To prove the app never makes an asynchronous request"},
+        {"en": "To measure the exact frame rate on a target device"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "State order can be part of the feature's expected behavior."},
+      "tip": {"en": "Use controlled dependencies to make emitted states deterministic."}
+    },
+    {
+      "id": "quiz_test_integration_scope",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://docs.flutter.dev/testing",
+      "question": {"en": "What is an integration test best suited to check?"},
+      "options": [
+        {"en": "A larger flow working across connected app components"},
+        {"en": "One pure function's output for a single input"},
+        {"en": "A constructor's default value without building the app"},
+        {"en": "A private helper's exact sequence of local statements"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Integration tests exercise larger portions of an application together."},
+      "tip": {"en": "Keep unit and widget tests for faster, more focused feedback."}
+    },
+    {
+      "id": "quiz_test_assertions",
+      "type": "trueFalse",
+      "difficulty": "junior",
+      "source": "https://docs.flutter.dev/testing/overview",
+      "question": {"en": "A test is useful only when it checks the implementation's private method calls."},
+      "answer": false,
+      "why": {"en": "Tests should primarily verify observable behavior and relevant outcomes."},
+      "tip": {"en": "Behavior-focused assertions usually survive internal refactoring better."}
+    }
   ]
 }

@@ -16,15 +16,31 @@ class LocalizedText extends Equatable {
 
   final Map<String, String> values;
 
-  String resolve(String languageCode) {
+  ResolvedLocalizedText resolveWith(String languageCode) {
     final normalizedLanguageCode = languageCode.replaceAll('_', '-');
     final exact = values[normalizedLanguageCode];
-    if (exact != null) return exact;
+    if (exact != null) {
+      return ResolvedLocalizedText(exact, normalizedLanguageCode);
+    }
 
     final baseLanguageCode = normalizedLanguageCode.split('-').first;
-    return values[baseLanguageCode] ?? values['en']!;
+    final base = values[baseLanguageCode];
+    if (base != null) return ResolvedLocalizedText(base, baseLanguageCode);
+    return ResolvedLocalizedText(values['en']!, 'en');
   }
+
+  String resolve(String languageCode) => resolveWith(languageCode).text;
 
   @override
   List<Object> get props => [values];
+}
+
+class ResolvedLocalizedText extends Equatable {
+  const ResolvedLocalizedText(this.text, this.languageCode);
+
+  final String text;
+  final String languageCode;
+
+  @override
+  List<Object> get props => [text, languageCode];
 }

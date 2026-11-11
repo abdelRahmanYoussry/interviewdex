@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/constants.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({this.launchRepository = _launchRepository, super.key});
+
+  final Future<bool> Function(Uri) launchRepository;
+
+  static Future<bool> _launchRepository(Uri uri) =>
+      launchUrl(uri, webOnlyWindowName: '_blank');
+
+  Future<void> _openRepository(BuildContext context) async {
+    final opened = await launchRepository(
+      Uri.parse(AppConstants.repositoryUrl),
+    );
+    if (!opened && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.githubOpenFailure),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +36,11 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(localizations.appTitle),
         actions: [
+          IconButton(
+            tooltip: localizations.githubRepo,
+            onPressed: () => _openRepository(context),
+            icon: const Icon(Icons.code),
+          ),
           IconButton(
             tooltip: localizations.settings,
             onPressed:
@@ -59,12 +84,26 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 28),
                   FilledButton.icon(
+                    key: const ValueKey('quickQuiz'),
+                    onPressed:
+                        () => Navigator.of(context).pushNamed(AppRoutes.quiz),
+                    icon: const Icon(Icons.play_arrow_rounded),
+                    label: Text(localizations.quickQuiz),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    localizations.quizSubtitle,
+                    style: theme.textTheme.bodySmall,
+                    textAlign: TextAlign.start,
+                  ),
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
                     key: const ValueKey('startInterview'),
                     onPressed:
                         () => Navigator.of(
                           context,
                         ).pushNamed(AppRoutes.interview),
-                    icon: const Icon(Icons.play_arrow_rounded),
+                    icon: const Icon(Icons.record_voice_over_outlined),
                     label: Text(localizations.startInterview),
                   ),
                 ],

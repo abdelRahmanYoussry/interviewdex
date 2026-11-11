@@ -59,5 +59,81 @@
       },
       "source": "https://docs.flutter.dev/perf/best-practices"
     }
+  ],
+  "quiz": [
+    {
+      "id": "quiz_network_async_result",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "https://docs.flutter.dev/cookbook/networking/fetch-data",
+      "question": {"en": "What should a screen show while an HTTP request is pending?"},
+      "options": [
+        {"en": "A loading state while the result is not available"},
+        {"en": "A success state containing an empty response body"},
+        {"en": "A failure state before the request can complete"},
+        {"en": "A cached result even when no cache was provided"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "The UI should represent that the asynchronous request is still in progress."},
+      "tip": {"en": "A FutureBuilder or explicit state can represent loading, success, and error."}
+    },
+    {
+      "id": "quiz_network_timeout",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://docs.flutter.dev/cookbook/networking/fetch-data",
+      "question": {"en": "How should an app handle an expected network failure?"},
+      "options": [
+        {"en": "Show a useful error state and offer retry when possible"},
+        {"en": "Return success with empty data to keep the screen simple"},
+        {"en": "Ignore the error and keep the loading indicator visible"},
+        {"en": "Show the complete exception and stack trace to the user"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A clear error state lets users understand the problem and recover."},
+      "tip": {"en": "Keep technical details in logs rather than exposing them in the UI."}
+    },
+    {
+      "id": "quiz_network_lazy_list",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://api.flutter.dev/flutter/widgets/ListView/ListView.builder.html",
+      "question": {"en": "Which list approach avoids building every row at once?"},
+      "options": [
+        {"en": "Use a builder that creates rows as they are needed"},
+        {"en": "Create a fixed widget for every row before scrolling"},
+        {"en": "Place each row in a separate nested scrolling view"},
+        {"en": "Rebuild all rows whenever one visible row changes"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Builder constructors lazily create children as the list needs them."},
+      "tip": {"en": "For large collections, lazy construction can reduce initial work and memory."}
+    },
+    {
+      "id": "quiz_network_profile_first",
+      "type": "multipleChoice",
+      "difficulty": "senior",
+      "source": "https://docs.flutter.dev/tools/devtools/performance",
+      "question": {"en": "What is a sound first step when a Flutter screen feels slow?"},
+      "options": [
+        {"en": "Profile the screen to identify its actual bottleneck"},
+        {"en": "Rewrite every widget as a custom render object"},
+        {"en": "Add caching to each method before measuring behavior"},
+        {"en": "Increase the device frame rate to hide the delay"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Profiling helps locate the actual source of slow frames before changes are made."},
+      "tip": {"en": "Measure in profile mode because debug performance is not representative."}
+    },
+    {
+      "id": "quiz_network_debug_performance",
+      "type": "trueFalse",
+      "difficulty": "mid",
+      "source": "https://docs.flutter.dev/perf/best-practices",
+      "question": {"en": "Debug-mode frame timings always represent release performance accurately."},
+      "answer": false,
+      "why": {"en": "Debug mode adds checks and instrumentation that affect performance."},
+      "tip": {"en": "Use profile mode to investigate performance on a representative build."}
+    }
   ]
 }

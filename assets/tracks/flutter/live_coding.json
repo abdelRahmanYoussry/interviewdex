@@ -105,5 +105,81 @@
       },
       "source": "Reason: This coding exercise practices counting values with a modulo condition."
     }
+  ],
+  "quiz": [
+    {
+      "id": "quiz_live_even_modulo",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "https://dart.dev/language/operators",
+      "question": {"en": "Which condition checks whether an integer value is even?"},
+      "options": [
+        {"en": "value % 2 == 0"},
+        {"en": "value % 2 == 1"},
+        {"en": "value ~/ 2 == 0"},
+        {"en": "value / 2 == 0"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "An even integer leaves a remainder of 0 when divided by 2."},
+      "tip": {"en": "Dart integers also have isEven and isOdd getters, for example value.isEven."}
+    },
+    {
+      "id": "quiz_live_list_length",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "https://api.dart.dev/dart-core/List-class.html",
+      "question": {"en": "Which property gives the number of items in a Dart list?"},
+      "options": [
+        {"en": "length"},
+        {"en": "count"},
+        {"en": "size"},
+        {"en": "capacity"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "The List length property reports the number of elements it contains."},
+      "tip": {"en": "A list index ranges from zero up to, but not including, length."}
+    },
+    {
+      "id": "quiz_live_loop_range",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://dart.dev/language/loops",
+      "question": {"en": "Which loop form visits each value in an iterable directly?"},
+      "options": [
+        {"en": "for (final value in values)"},
+        {"en": "for (final value of values)"},
+        {"en": "values.forEach(final value)"},
+        {"en": "while (final value in values)"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Dart's for-in loop iterates over each element of an iterable."},
+      "tip": {"en": "Use an indexed loop when the index itself is needed."}
+    },
+    {
+      "id": "quiz_live_immutable_input",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "https://dart.dev/language/variables",
+      "question": {"en": "What does declaring a loop variable final prevent?"},
+      "options": [
+        {"en": "Reassigning that variable during its loop iteration"},
+        {"en": "Reading that variable after the loop iteration"},
+        {"en": "Using that variable to access an object property"},
+        {"en": "Passing that variable to another function"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A final variable can be assigned only once, including a loop-local variable."},
+      "tip": {"en": "Final does not make an object referenced by the variable deeply immutable."}
+    },
+    {
+      "id": "quiz_live_string_buffer",
+      "type": "trueFalse",
+      "difficulty": "mid",
+      "source": "https://api.dart.dev/dart-core/StringBuffer-class.html",
+      "question": {"en": "StringBuffer can be useful when building a string from many parts."},
+      "answer": true,
+      "why": {"en": "StringBuffer collects pieces and produces a string when toString is called."},
+      "tip": {"en": "It can avoid repeatedly creating intermediate strings in a loop."}
+    }
   ]
 }

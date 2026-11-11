@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,6 +8,11 @@ import '../../core/analytics/no_op_analytics_service.dart';
 import '../../features/settings/data/shared_preferences_settings_repository.dart';
 import '../../features/settings/domain/settings_repository.dart';
 import '../../features/settings/presentation/settings_cubit.dart';
+import '../../features/quiz/data/repositories/shared_preferences_quiz_progress_repository.dart';
+import '../../features/quiz/domain/repositories/quiz_progress_repository.dart';
+import '../../features/quiz/domain/use_cases/build_quiz.dart';
+import '../../features/quiz/domain/use_cases/score_quiz.dart';
+import '../../features/quiz/presentation/cubits/quiz_cubit.dart';
 import '../../features/tracks/data/data_sources/track_asset_source.dart';
 import '../../features/tracks/data/repositories/track_content_loader.dart';
 import '../../features/tracks/data/repositories/track_repository_impl.dart';
@@ -28,6 +35,7 @@ Future<void> setupServiceLocator() async {
       () => AppRouter(
         createTrackCubit: () => sl<TrackCubit>(),
         createPracticeSessionCubit: () => sl<PracticeSessionCubit>(),
+        createQuizCubit: () => sl<QuizCubit>(),
       ),
     );
   }
@@ -96,6 +104,29 @@ Future<void> setupServiceLocator() async {
         buildMockInterview: sl<BuildMockInterview>(),
         summarizeMockInterview: sl<SummarizeMockInterview>(),
         analytics: sl<AnalyticsService>(),
+      ),
+    );
+  }
+  if (!sl.isRegistered<QuizProgressRepository>()) {
+    sl.registerLazySingleton<QuizProgressRepository>(
+      () => SharedPreferencesQuizProgressRepository(sl<SharedPreferences>()),
+    );
+  }
+  if (!sl.isRegistered<BuildQuiz>()) {
+    sl.registerLazySingleton(() => const BuildQuiz());
+  }
+  if (!sl.isRegistered<ScoreQuiz>()) {
+    sl.registerLazySingleton(() => const ScoreQuiz());
+  }
+  if (!sl.isRegistered<QuizCubit>()) {
+    sl.registerFactory(
+      () => QuizCubit(
+        loadTracks: sl<LoadTracks>(),
+        progressRepository: sl<QuizProgressRepository>(),
+        buildQuiz: sl<BuildQuiz>(),
+        scoreQuiz: sl<ScoreQuiz>(),
+        analytics: sl<AnalyticsService>(),
+        random: Random(),
       ),
     );
   }

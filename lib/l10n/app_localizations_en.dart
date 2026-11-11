@@ -12,11 +12,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'InterviewDex';
 
   @override
-  String get tagline =>
-      'Real interview questions for Flutter developers. Built with Flutter.';
+  String get tagline => 'Real interview questions for Flutter developers. Built with Flutter.';
 
   @override
   String get settings => 'Settings';
+
+  @override
+  String get githubRepo => 'GitHub repo';
+
+  @override
+  String get githubOpenFailure => 'Couldn\'t open the GitHub repository.';
 
   @override
   String get language => 'Language';
@@ -46,7 +51,90 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeWelcome => 'Prepare for your next interview';
 
   @override
-  String get startInterview => 'Start preparing';
+  String get startInterview => 'Interview practice';
+
+  @override
+  String get quickQuiz => 'Quick quiz';
+
+  @override
+  String get quizSubtitle => 'Answer short questions and learn after every answer.';
+
+  @override
+  String get quizPickerTitle => 'Choose a quiz';
+
+  @override
+  String get quizAllTopics => 'All topics';
+
+  @override
+  String get quizResume => 'Resume quiz';
+
+  @override
+  String get quizLoadFailure => 'We couldn\'t load the quiz. Please try again.';
+
+  @override
+  String get quizCorrect => 'Correct';
+
+  @override
+  String get quizIncorrect => 'Not quite';
+
+  @override
+  String get quizCorrectAnswer => 'Correct answer';
+
+  @override
+  String get quizYourAnswer => 'Your answer';
+
+  @override
+  String get quizWhy => 'Why';
+
+  @override
+  String get quizTip => 'Extra tip';
+
+  @override
+  String get quizNext => 'Next';
+
+  @override
+  String get quizTrue => 'True';
+
+  @override
+  String get quizFalse => 'False';
+
+  @override
+  String get quizResults => 'Quiz results';
+
+  @override
+  String get quizRetryWrong => 'Retry wrong answers';
+
+  @override
+  String get backToHome => 'Back to home';
+
+  @override
+  String quizQuestionProgress(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String quizScore(int score, int total) {
+    String _temp0 = intl.Intl.pluralLogic(
+      total,
+      locale: localeName,
+      other: '$total questions',
+      one: '$total question',
+      zero: 'no questions',
+    );
+    return '$score correct out of $_temp0';
+  }
+
+  @override
+  String quizWrongCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count wrong answers',
+      one: '$count wrong answer',
+      zero: 'No wrong answers',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get settingsDescription => 'Choose your language and appearance.';
@@ -74,15 +162,15 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       mastered,
       locale: localeName,
-      other: '# cards mastered',
-      one: '# card mastered',
+      other: '$mastered cards mastered',
+      one: '$mastered card mastered',
       zero: 'No cards mastered',
     );
     String _temp1 = intl.Intl.pluralLogic(
       total,
       locale: localeName,
-      other: '# cards',
-      one: '# card',
+      other: '$total cards',
+      one: '$total card',
       zero: 'no cards',
     );
     return '$_temp0 of $_temp1';
@@ -105,8 +193,8 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# questions',
-      one: '# question',
+      other: '$count questions',
+      one: '$count question',
       zero: 'No questions',
     );
     return '$_temp0';
@@ -117,14 +205,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String questionProgress(int current, int total) {
-    String _temp0 = intl.Intl.pluralLogic(
-      total,
-      locale: localeName,
-      other: '# questions',
-      one: '# question',
-      zero: 'no questions',
-    );
-    return 'Question $current of $_temp0';
+    return 'Question $current of $total';
   }
 
   @override
@@ -132,8 +213,8 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# consecutive ratings',
-      one: '# consecutive rating',
+      other: '$count consecutive ratings',
+      one: '$count consecutive rating',
     );
     return 'Nailed it streak: $_temp0 of 2';
   }
@@ -221,8 +302,8 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# questions to review',
-      one: '# question to review',
+      other: '$count questions to review',
+      one: '$count question to review',
       zero: 'No questions to review',
     );
     return '$_temp0';

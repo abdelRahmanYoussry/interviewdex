@@ -26,6 +26,12 @@ class NoOpAnalyticsService implements AnalyticsService {
   Future<void> mockInterviewComplete() async {}
 
   @override
+  Future<void> quickQuizComplete({
+    required int score,
+    required int total,
+  }) async {}
+
+  @override
   Future<void> levelComplete({
     required String level,
     required int stars,

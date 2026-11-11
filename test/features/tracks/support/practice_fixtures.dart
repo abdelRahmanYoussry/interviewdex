@@ -191,6 +191,7 @@ class TestAnalytics implements AnalyticsService {
   Completer<void>? revealCompleter;
   Completer<void>? trackOpenCompleter;
   int mockCompletions = 0;
+  int quizCompletions = 0;
   final ratings = <String>[];
 
   @override
@@ -218,6 +219,14 @@ class TestAnalytics implements AnalyticsService {
   @override
   Future<void> mockInterviewComplete() async {
     mockCompletions += 1;
+  }
+
+  @override
+  Future<void> quickQuizComplete({
+    required int score,
+    required int total,
+  }) async {
+    quizCompletions += 1;
   }
 
   @override

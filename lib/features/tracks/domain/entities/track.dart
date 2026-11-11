@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'interview_question.dart';
+import 'quiz_item.dart';
 import '../value_objects/localized_text.dart';
 
 class InterviewTrack extends Equatable {
@@ -27,12 +28,14 @@ class InterviewTopic extends Equatable {
     required this.id,
     required this.name,
     required this.interviewCards,
+    this.quizItems = const [],
   });
 
   final String id;
   final LocalizedText name;
   final List<InterviewQuestion> interviewCards;
+  final List<QuizItem> quizItems;
 
   @override
-  List<Object> get props => [id, name, interviewCards];
+  List<Object> get props => [id, name, interviewCards, quizItems];
 }

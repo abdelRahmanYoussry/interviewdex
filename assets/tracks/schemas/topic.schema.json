@@ -12,7 +12,7 @@
     },
     "quiz": {
       "type": "array",
-      "items": { "type": "object" }
+      "items": { "$ref": "#/$defs/quizItem" }
     },
     "bugHunts": {
       "type": "array",
@@ -24,6 +24,65 @@
     "id": {
       "type": "string",
       "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$"
+    },
+    "quizItem": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "id", "type", "difficulty", "source", "question", "options",
+            "correctIndex", "why", "tip"
+          ],
+          "properties": {
+            "id": { "$ref": "#/$defs/id" },
+            "type": { "const": "multipleChoice" },
+            "difficulty": { "enum": ["junior", "mid", "senior"] },
+            "source": { "$ref": "#/$defs/source" },
+            "question": { "$ref": "#/$defs/localizedText" },
+            "code": { "type": "string", "minLength": 1 },
+            "options": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "uniqueItems": true,
+              "items": { "$ref": "#/$defs/localizedText" }
+            },
+            "correctIndex": { "type": "integer", "minimum": 0, "maximum": 3 },
+            "why": { "$ref": "#/$defs/shortExplanation" },
+            "tip": { "$ref": "#/$defs/shortExplanation" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "id", "type", "difficulty", "source", "question", "answer",
+            "why", "tip"
+          ],
+          "properties": {
+            "id": { "$ref": "#/$defs/id" },
+            "type": { "const": "trueFalse" },
+            "difficulty": { "enum": ["junior", "mid", "senior"] },
+            "source": { "$ref": "#/$defs/source" },
+            "question": { "$ref": "#/$defs/localizedText" },
+            "code": { "type": "string", "minLength": 1 },
+            "answer": { "type": "boolean" },
+            "why": { "$ref": "#/$defs/shortExplanation" },
+            "tip": { "$ref": "#/$defs/shortExplanation" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300,
+      "pattern": "^(Reason: .+|https://\\S+)$"
+    },
+    "shortExplanation": {
+      "$ref": "#/$defs/localizedText",
+      "description": "One or two short sentences."
     },
     "localizedText": {
       "type": "object",

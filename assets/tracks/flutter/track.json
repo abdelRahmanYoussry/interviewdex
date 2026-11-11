@@ -9,6 +9,8 @@
   "icon": "track_icon.png",
   "sourceHosts": [
     "dart.dev",
+    "api.dart.dev",
+    "api.flutter.dev",
     "docs.flutter.dev",
     "bloclibrary.dev",
     "pub.dev"

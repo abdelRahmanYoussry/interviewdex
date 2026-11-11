@@ -96,7 +96,7 @@ class TrackContentLoader {
                 expectedId: topicDescriptor.id,
                 name: topicDescriptor.name,
                 logWarning: _logWarning,
-                trackCardIds: cardIds,
+                trackItemIds: cardIds,
                 sourceHosts: metadata.sourceHosts.toSet(),
               ),
             );

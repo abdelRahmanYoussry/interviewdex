@@ -59,5 +59,81 @@
       },
       "source": "https://docs.flutter.dev/ui/interactivity"
     }
+  ],
+  "quiz": [
+    {
+      "id": "quiz_widget_description",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "https://docs.flutter.dev/ui",
+      "question": {"en": "What does a Flutter widget describe?"},
+      "options": [
+        {"en": "A configuration for part of the interface"},
+        {"en": "A persistent object that stores mutable view state"},
+        {"en": "An element that stores the rendered interface pixels"},
+        {"en": "A renderer that paints a screen directly from data"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A widget is an immutable description of part of the user interface."},
+      "tip": {"en": "Flutter combines widgets into a tree to describe the screen."}
+    },
+    {
+      "id": "quiz_stateful_state_ownership",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html",
+      "question": {"en": "Where is the mutable state for a StatefulWidget stored?"},
+      "options": [
+        {"en": "In a separate State object managed by Flutter"},
+        {"en": "In the immutable StatefulWidget configuration object"},
+        {"en": "In the BuildContext passed to the build method"},
+        {"en": "In a static field on the StatefulWidget class"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A StatefulWidget creates a separate State object that holds mutable state."},
+      "tip": {"en": "Flutter may create new widget configurations while preserving the matching State."}
+    },
+    {
+      "id": "quiz_layout_constraints",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://docs.flutter.dev/ui/layout/constraints",
+      "question": {"en": "In Flutter's layout model, what does a parent give its child?"},
+      "options": [
+        {"en": "Constraints that describe allowed minimum and maximum sizes"},
+        {"en": "A final pixel size that the child must always use"},
+        {"en": "A screen coordinate where the child must be painted"},
+        {"en": "A list of sibling widgets that the child must measure"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "The parent passes size constraints and the child chooses a size within them."},
+      "tip": {"en": "The parent then positions the child within its own layout."}
+    },
+    {
+      "id": "quiz_key_widget_identity",
+      "type": "multipleChoice",
+      "difficulty": "senior",
+      "source": "https://api.flutter.dev/flutter/foundation/Key-class.html",
+      "question": {"en": "When are keys especially useful in a changing list of widgets?"},
+      "options": [
+        {"en": "When Flutter must match an element to its new widget"},
+        {"en": "When a widget needs a stable identifier for navigation"},
+        {"en": "When an element should match a widget with another type"},
+        {"en": "When a widget should preserve pixels after removal"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Keys help Flutter match widgets with existing elements when their positions change."},
+      "tip": {"en": "A stable value key is often enough for data-driven list rows."}
+    },
+    {
+      "id": "quiz_build_side_effects",
+      "type": "trueFalse",
+      "difficulty": "mid",
+      "source": "https://api.flutter.dev/flutter/widgets/State/build.html",
+      "question": {"en": "A widget's build method should avoid causing side effects such as starting a network request."},
+      "answer": true,
+      "why": {"en": "Flutter can call build often, so it should describe UI rather than perform one-time work."},
+      "tip": {"en": "Start asynchronous work in an appropriate lifecycle method or state-management layer."}
+    }
   ]
 }

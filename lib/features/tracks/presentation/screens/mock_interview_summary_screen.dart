@@ -8,6 +8,7 @@ import '../../domain/entities/mock_interview_summary.dart';
 import '../../domain/entities/saved_practice_session.dart';
 import '../../domain/entities/track.dart';
 import '../cubits/practice_session_cubit.dart';
+import '../widgets/localized_content_text.dart';
 
 class MockInterviewSummaryRequest {
   const MockInterviewSummaryRequest({
@@ -101,8 +102,10 @@ class MockInterviewSummaryScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Expanded(
-                                    child: Text(
-                                      topic.topicName.resolve(languageCode),
+                                    child: LocalizedContentText(
+                                      topic.topicName,
+                                      languageCode: languageCode,
+                                      alignToUiStart: true,
                                       style: Theme.of(
                                         context,
                                       ).textTheme.titleMedium?.copyWith(
@@ -166,11 +169,14 @@ class MockInterviewSummaryScreen extends StatelessWidget {
                   for (final item in summary.reviewCards)
                     Card(
                       child: ListTile(
-                        title: Text(
-                          item.card.question.question.resolve(languageCode),
+                        title: LocalizedContentText(
+                          item.card.question.question,
+                          languageCode: languageCode,
                         ),
-                        subtitle: Text(
-                          item.card.topicName.resolve(languageCode),
+                        subtitle: LocalizedContentText(
+                          item.card.topicName,
+                          languageCode: languageCode,
+                          alignToUiStart: true,
                         ),
                         trailing: Text(
                           item.rating == CardRating.missed

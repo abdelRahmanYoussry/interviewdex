@@ -59,5 +59,81 @@
       },
       "source": "https://bloclibrary.dev/bloc-concepts/"
     }
+  ],
+  "quiz": [
+    {
+      "id": "quiz_state_cubit_methods",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "https://bloclibrary.dev/bloc-concepts/",
+      "question": {"en": "How does a Cubit commonly receive a request to change state?"},
+      "options": [
+        {"en": "The UI calls a method on the Cubit"},
+        {"en": "The UI adds a typed event to the Cubit"},
+        {"en": "The UI edits the Cubit's state object directly"},
+        {"en": "The UI rebuilds the Cubit with new constructor data"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Cubit exposes methods that perform work and emit new states."},
+      "tip": {"en": "Bloc uses explicit events when that event layer is useful."}
+    },
+    {
+      "id": "quiz_state_provider_scope",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://docs.flutter.dev/data-and-backend/state-mgmt/options",
+      "question": {"en": "What should guide the scope of shared application state?"},
+      "options": [
+        {"en": "Which parts of the app need the state and for how long"},
+        {"en": "How often the value changes during one screen interaction"},
+        {"en": "Whether the state has one value or related fields"},
+        {"en": "How many values the feature needs to calculate at once"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "State scope should reflect which consumers need it and its intended lifetime."},
+      "tip": {"en": "Keeping local state local can avoid unnecessary shared complexity."}
+    },
+    {
+      "id": "quiz_state_bloc_events",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://bloclibrary.dev/bloc-concepts/",
+      "question": {"en": "What does a Bloc transform into states?"},
+      "options": [
+        {"en": "Events received by the Bloc"},
+        {"en": "Methods called by the widget tree"},
+        {"en": "Build contexts created by the framework"},
+        {"en": "Repository results provided to the feature"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A Bloc receives events and maps them to state changes."},
+      "tip": {"en": "An event type can describe a user action or another input to the feature."}
+    },
+    {
+      "id": "quiz_state_test_expect",
+      "type": "multipleChoice",
+      "difficulty": "senior",
+      "source": "https://pub.dev/packages/bloc_test",
+      "question": {"en": "What does blocTest help verify about a Cubit or Bloc?"},
+      "options": [
+        {"en": "The sequence of states emitted after an action"},
+        {"en": "The exact pixels painted by every widget"},
+        {"en": "The network speed of each repository request"},
+        {"en": "The generated machine code for each state class"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "blocTest makes it straightforward to assert ordered state emissions."},
+      "tip": {"en": "It can also run setup and verify interactions with controlled dependencies."}
+    },
+    {
+      "id": "quiz_state_ui_mutation",
+      "type": "trueFalse",
+      "difficulty": "mid",
+      "source": "https://docs.flutter.dev/data-and-backend/state-mgmt/options",
+      "question": {"en": "A widget should directly mutate shared feature state to update the screen."},
+      "answer": false,
+      "why": {"en": "State should be changed through the owning state-management mechanism."},
+      "tip": {"en": "A clear state owner makes updates and tests easier to reason about."}
+    }
   ]
 }

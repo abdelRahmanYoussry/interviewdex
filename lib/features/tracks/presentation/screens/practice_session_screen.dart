@@ -12,6 +12,7 @@ import 'mock_interview_summary_screen.dart';
 import '../widgets/answer_timer_button.dart';
 import '../widgets/practice_answer_sections.dart';
 import '../widgets/practice_question_card.dart';
+import '../widgets/localized_content_text.dart';
 import '../widgets/practice_rating_bar.dart';
 import '../widgets/template_answer_form.dart';
 
@@ -76,19 +77,22 @@ class PracticeSessionScreen extends StatelessWidget {
       },
       builder: (context, state) {
         final title = switch (state) {
-          PracticeSessionActive(:final mode) =>
+          PracticeSessionActive(:final mode) => Text(
             mode == PracticeMode.mock
                 ? strings.mockInterview
                 : strings.practiceTitle,
-          PracticeSessionComplete(:final track) => track.name.resolve(
-            Localizations.localeOf(context).languageCode,
+          ),
+          PracticeSessionComplete(:final track) => LocalizedContentText(
+            track.name,
+            languageCode: Localizations.localeOf(context).languageCode,
+            alignToUiStart: true,
           ),
           PracticeSessionLoading() ||
-          PracticeSessionFailure() => strings.practiceTitle,
+          PracticeSessionFailure() => Text(strings.practiceTitle),
         };
         return Scaffold(
           appBar: AppBar(
-            title: Text(title),
+            title: title,
             leading: IconButton(
               tooltip: strings.backToTrack,
               onPressed: () => Navigator.of(context).maybePop(),
@@ -148,8 +152,10 @@ class PracticeSessionScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 4),
-              Text(
-                state.currentCard.topicName.resolve(languageCode),
+              LocalizedContentText(
+                state.currentCard.topicName,
+                languageCode: languageCode,
+                alignToUiStart: true,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               if ((state.progress[question.id]?.nailedItStreak ?? 0) > 0) ...[

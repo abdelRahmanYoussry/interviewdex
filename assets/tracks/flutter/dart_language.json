@@ -59,5 +59,81 @@
       },
       "source": "https://dart.dev/null-safety/understanding-null-safety"
     }
+  ],
+  "quiz": [
+    {
+      "id": "quiz_dart_final_assignment",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "https://dart.dev/language/variables",
+      "question": {"en": "When can a final variable receive its value?"},
+      "options": [
+        {"en": "Once, including from a value known only at runtime"},
+        {"en": "Many times, as long as the new type stays unchanged"},
+        {"en": "Only at compile time, before the program can run"},
+        {"en": "Once per function call, when its scope is entered"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A final variable is assigned once, and its value may be determined at runtime."},
+      "tip": {"en": "Use const instead when the value is a compile-time constant."}
+    },
+    {
+      "id": "quiz_dart_nullable_type",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://dart.dev/null-safety/understanding-null-safety",
+      "question": {"en": "How do you declare a Dart variable that may hold null?"},
+      "options": [
+        {"en": "Add a question mark to the type, such as String?"},
+        {"en": "Add an exclamation mark to the type, such as String!"},
+        {"en": "Wrap the type in braces, such as {String}"},
+        {"en": "Use the dynamic keyword before the type name"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "The question mark makes the type nullable, so its value may be null."},
+      "tip": {"en": "A nullable value needs handling before it is used as a non-null value."}
+    },
+    {
+      "id": "quiz_dart_record_shape",
+      "type": "multipleChoice",
+      "difficulty": "senior",
+      "source": "https://dart.dev/language/records",
+      "question": {"en": "What is a Dart record most useful for returning?"},
+      "options": [
+        {"en": "A fixed group of values with possibly different types"},
+        {"en": "A growable collection of values with one shared type"},
+        {"en": "A named class with custom methods and mutable fields"},
+        {"en": "A key-value collection with runtime string lookups"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Records group a fixed number of typed values without defining a new class."},
+      "tip": {"en": "Record fields can be accessed by position or by declared name."}
+    },
+    {
+      "id": "quiz_dart_async_future",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "https://dart.dev/language/async",
+      "question": {"en": "What does a Future<T> represent in Dart?"},
+      "options": [
+        {"en": "A value of type T that may become available later"},
+        {"en": "A stream of type T values that continues over time"},
+        {"en": "A synchronous result that is computed on another thread"},
+        {"en": "A callback that must run before the current method returns"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A Future represents one asynchronous result that will complete later."},
+      "tip": {"en": "Use Stream when a source may emit multiple values over time."}
+    },
+    {
+      "id": "quiz_dart_const_compile_time",
+      "type": "trueFalse",
+      "difficulty": "junior",
+      "source": "https://dart.dev/language/variables",
+      "question": {"en": "A const variable's value must be known at compile time."},
+      "answer": true,
+      "why": {"en": "Dart requires const values to be compile-time constants."},
+      "tip": {"en": "A final variable can instead be assigned from a runtime result."}
+    }
   ]
 }

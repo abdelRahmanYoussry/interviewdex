@@ -59,5 +59,81 @@
       },
       "source": "Reason: This card compares key-based lookup in maps with ordered or repeated values in lists."
     }
+  ],
+  "quiz": [
+    {
+      "id": "quiz_general_linear_search",
+      "type": "multipleChoice",
+      "difficulty": "junior",
+      "source": "Reason: This question checks the work growth of scanning an unsorted collection.",
+      "question": {"en": "What is the worst-case time complexity of scanning an unsorted list for a value?"},
+      "options": [
+        {"en": "O(n), because each item may need to be checked"},
+        {"en": "O(1), because the list has a known first item"},
+        {"en": "O(log n), because each check halves the list"},
+        {"en": "O(n squared), because each item checks every other item"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "In the worst case, a scan checks each of the n items once."},
+      "tip": {"en": "A sorted collection can support different search strategies."}
+    },
+    {
+      "id": "quiz_general_map_lookup",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "Reason: This question compares key-based lookup with ordered collection access.",
+      "question": {"en": "Which collection is a natural fit for looking up a user by ID?"},
+      "options": [
+        {"en": "A map that associates each user ID with a user"},
+        {"en": "A list that stores users in their original order"},
+        {"en": "A queue that returns users in insertion order"},
+        {"en": "A stack that returns users in reverse insertion order"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A map directly associates a key such as an ID with its value."},
+      "tip": {"en": "Choose a list when order or repeated values are important."}
+    },
+    {
+      "id": "quiz_general_stack_order",
+      "type": "multipleChoice",
+      "difficulty": "mid",
+      "source": "Reason: This question checks the last-in-first-out behavior of a stack.",
+      "question": {"en": "Which item does a stack usually remove first?"},
+      "options": [
+        {"en": "The most recently added item"},
+        {"en": "The least recently added item"},
+        {"en": "The next item in insertion order"},
+        {"en": "The item with the highest priority"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "A stack follows last-in-first-out order."},
+      "tip": {"en": "A queue uses first-in-first-out order instead."}
+    },
+    {
+      "id": "quiz_general_binary_search",
+      "type": "multipleChoice",
+      "difficulty": "senior",
+      "source": "Reason: This question checks the precondition and shrinking search range of binary search.",
+      "question": {"en": "What property does binary search normally require?"},
+      "options": [
+        {"en": "The searchable values are ordered by the searched key"},
+        {"en": "The searchable values are stored in a linked structure"},
+        {"en": "The searchable values contain no duplicate entries"},
+        {"en": "The searchable values are grouped by their insertion time"}
+      ],
+      "correctIndex": 0,
+      "why": {"en": "Binary search uses ordering to discard half of the remaining range."},
+      "tip": {"en": "Without a suitable ordering, a linear scan may be more appropriate."}
+    },
+    {
+      "id": "quiz_general_constant_time",
+      "type": "trueFalse",
+      "difficulty": "junior",
+      "source": "Reason: This question distinguishes constant-time growth from an exact measured duration.",
+      "question": {"en": "An O(1) operation takes the same number of milliseconds on every device."},
+      "answer": false,
+      "why": {"en": "O(1) describes growth that does not depend on input size, not exact elapsed time."},
+      "tip": {"en": "Actual runtime can still vary with hardware, load, and implementation."}
+    }
   ]
 }

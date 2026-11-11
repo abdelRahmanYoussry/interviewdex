@@ -62,8 +62,7 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -71,8 +70,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -84,18 +82,17 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
-    Locale('en'),
+    Locale('en')
   ];
 
   /// No description provided for @appTitle.
@@ -115,6 +112,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
+
+  /// No description provided for @githubRepo.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub repo'**
+  String get githubRepo;
+
+  /// No description provided for @githubOpenFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open the GitHub repository.'**
+  String get githubOpenFailure;
 
   /// No description provided for @language.
   ///
@@ -173,8 +182,134 @@ abstract class AppLocalizations {
   /// No description provided for @startInterview.
   ///
   /// In en, this message translates to:
-  /// **'Start preparing'**
+  /// **'Interview practice'**
   String get startInterview;
+
+  /// No description provided for @quickQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick quiz'**
+  String get quickQuiz;
+
+  /// No description provided for @quizSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer short questions and learn after every answer.'**
+  String get quizSubtitle;
+
+  /// No description provided for @quizPickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a quiz'**
+  String get quizPickerTitle;
+
+  /// No description provided for @quizAllTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'All topics'**
+  String get quizAllTopics;
+
+  /// No description provided for @quizResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume quiz'**
+  String get quizResume;
+
+  /// No description provided for @quizLoadFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t load the quiz. Please try again.'**
+  String get quizLoadFailure;
+
+  /// No description provided for @quizCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct'**
+  String get quizCorrect;
+
+  /// No description provided for @quizIncorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite'**
+  String get quizIncorrect;
+
+  /// No description provided for @quizCorrectAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct answer'**
+  String get quizCorrectAnswer;
+
+  /// No description provided for @quizYourAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer'**
+  String get quizYourAnswer;
+
+  /// No description provided for @quizWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Why'**
+  String get quizWhy;
+
+  /// No description provided for @quizTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra tip'**
+  String get quizTip;
+
+  /// No description provided for @quizNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get quizNext;
+
+  /// No description provided for @quizTrue.
+  ///
+  /// In en, this message translates to:
+  /// **'True'**
+  String get quizTrue;
+
+  /// No description provided for @quizFalse.
+  ///
+  /// In en, this message translates to:
+  /// **'False'**
+  String get quizFalse;
+
+  /// No description provided for @quizResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz results'**
+  String get quizResults;
+
+  /// No description provided for @quizRetryWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry wrong answers'**
+  String get quizRetryWrong;
+
+  /// No description provided for @backToHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to home'**
+  String get backToHome;
+
+  /// No description provided for @quizQuestionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String quizQuestionProgress(int current, int total);
+
+  /// No description provided for @quizScore.
+  ///
+  /// In en, this message translates to:
+  /// **'{score} correct out of {total, plural, =0{no questions} one{{total} question} other{{total} questions}}'**
+  String quizScore(int score, int total);
+
+  /// No description provided for @quizWrongCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No wrong answers} one{{count} wrong answer} other{{count} wrong answers}}'**
+  String quizWrongCount(int count);
 
   /// No description provided for @settingsDescription.
   ///
@@ -221,7 +356,7 @@ abstract class AppLocalizations {
   /// No description provided for @masteryProgress.
   ///
   /// In en, this message translates to:
-  /// **'{mastered, plural, =0{No cards mastered} one{# card mastered} other{# cards mastered}} of {total, plural, =0{no cards} one{# card} other{# cards}}'**
+  /// **'{mastered, plural, =0{No cards mastered} one{{mastered} card mastered} other{{mastered} cards mastered}} of {total, plural, =0{no cards} one{{total} card} other{{total} cards}}'**
   String masteryProgress(int mastered, int total);
 
   /// No description provided for @startMockInterview.
@@ -251,7 +386,7 @@ abstract class AppLocalizations {
   /// No description provided for @topicCardCount.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{No questions} one{# question} other{# questions}}'**
+  /// **'{count, plural, =0{No questions} one{{count} question} other{{count} questions}}'**
   String topicCardCount(int count);
 
   /// No description provided for @practiceTopic.
@@ -263,13 +398,13 @@ abstract class AppLocalizations {
   /// No description provided for @questionProgress.
   ///
   /// In en, this message translates to:
-  /// **'Question {current} of {total, plural, =0{no questions} one{# question} other{# questions}}'**
+  /// **'Question {current} of {total}'**
   String questionProgress(int current, int total);
 
   /// No description provided for @nailedItStreak.
   ///
   /// In en, this message translates to:
-  /// **'Nailed it streak: {count, plural, one{# consecutive rating} other{# consecutive ratings}} of 2'**
+  /// **'Nailed it streak: {count, plural, one{{count} consecutive rating} other{{count} consecutive ratings}} of 2'**
   String nailedItStreak(int count);
 
   /// No description provided for @answerFramework.
@@ -431,12 +566,11 @@ abstract class AppLocalizations {
   /// No description provided for @mockReviewCount.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{No questions to review} one{# question to review} other{# questions to review}}'**
+  /// **'{count, plural, =0{No questions to review} one{{count} question to review} other{{count} questions to review}}'**
   String mockReviewCount(int count);
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -445,26 +579,25 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar':
-      return AppLocalizationsAr();
-    case 'en':
-      return AppLocalizationsEn();
+    case 'ar': return AppLocalizationsAr();
+    case 'en': return AppLocalizationsEn();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
+    'that was used.'
   );
 }
