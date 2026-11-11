@@ -1,0 +1,17 @@
+{
+  "@@locale": "en",
+  "appTitle": "InterviewDex",
+  "tagline": "Real interview questions for Flutter developers. Built with Flutter.",
+  "settings": "Settings",
+  "language": "Language",
+  "languageSystem": "System",
+  "languageEnglish": "English",
+  "languageArabic": "العربية",
+  "appearance": "Appearance",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "homeWelcome": "Prepare for your next interview",
+  "settingsDescription": "Choose your language and appearance.",
+  "savedAutomatically": "Your choices are saved on this device."
+}

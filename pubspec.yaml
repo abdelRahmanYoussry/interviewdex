@@ -31,12 +31,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
   flutter_bloc: ^9.1.1
   equatable: ^3.0.0
   get_it: ^9.3.0
+  flutter_localizations:
+    sdk: flutter
+  shared_preferences: ^2.5.3
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -65,6 +67,27 @@ flutter:
   assets:
     - assets/tracks/index.json
     - assets/tracks/flutter/
+    - assets/fonts/sora/OFL.txt
+    - assets/fonts/inter/OFL.txt
+    - assets/fonts/jetbrainsmono/OFL.txt
+    - assets/fonts/ibmplexsansarabic/OFL.txt
+
+  fonts:
+    - family: Sora
+      fonts:
+        - asset: assets/fonts/sora/sora-variable.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/inter-variable.ttf
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/jetbrainsmono/jetbrainsmono-variable.ttf
+    - family: IBMPlexSansArabic
+      fonts:
+        - asset: assets/fonts/ibmplexsansarabic/ibmplexsansarabic-regular.ttf
+          weight: 400
+        - asset: assets/fonts/ibmplexsansarabic/ibmplexsansarabic-bold.ttf
+          weight: 700
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants.dart';
+import '../../../../core/router/app_router.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,8 +10,20 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(localizations.appTitle),
+        actions: [
+          IconButton(
+            tooltip: localizations.settings,
+            onPressed:
+                () => Navigator.of(context).pushNamed(AppRoutes.settings),
+            icon: const Icon(Icons.settings_outlined),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
@@ -18,25 +32,30 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.all(24),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    Icons.style_outlined,
-                    color: theme.colorScheme.primary,
-                    size: 40,
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Icon(
+                      Icons.style_outlined,
+                      color: theme.extension<AppColors>()!.accent,
+                      size: 40,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    AppConstants.appTitle,
+                    localizations.homeWelcome,
                     style: theme.textTheme.headlineLarge?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
+                    textAlign: TextAlign.start,
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    AppConstants.tagline,
+                    localizations.tagline,
                     style: theme.textTheme.titleMedium,
+                    textAlign: TextAlign.start,
                   ),
                 ],
               ),

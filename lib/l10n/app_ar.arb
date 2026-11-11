@@ -1,0 +1,17 @@
+{
+  "@@locale": "ar",
+  "appTitle": "InterviewDex",
+  "tagline": "أسئلة مقابلات حقيقية لمطوري Flutter. مبني باستخدام Flutter.",
+  "settings": "الإعدادات",
+  "language": "اللغة",
+  "languageSystem": "حسب النظام",
+  "languageEnglish": "الإنجليزية",
+  "languageArabic": "العربية",
+  "appearance": "المظهر",
+  "themeSystem": "حسب النظام",
+  "themeLight": "فاتح",
+  "themeDark": "داكن",
+  "homeWelcome": "استعد لمقابلتك القادمة",
+  "settingsDescription": "اختر اللغة والمظهر المناسبين لك.",
+  "savedAutomatically": "يتم حفظ اختياراتك على هذا الجهاز."
+}
