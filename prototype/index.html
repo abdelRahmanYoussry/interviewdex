@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>InterviewDex</title>
+<meta name="description" content="Real interview questions for Flutter developers. Built with Flutter. Play levels, learn why after every answer, and get ready for your next interview.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="InterviewDex">
+<meta property="og:description" content="Real interview questions for Flutter developers. Play levels, learn why after every answer, and get ready for your next interview.">
+<meta property="og:url" content="https://abdelrahmanyoussry.github.io/interviewdex/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#2b5cf0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%232b5cf0'/%3E%3Cpath d='M20 12v6M20 18l-7 6M20 18l7 6' stroke='white' stroke-width='2.4' stroke-linecap='round' fill='none'/%3E%3Ccircle cx='20' cy='11' r='3.6' fill='white'/%3E%3Ccircle cx='12.5' cy='27' r='3.6' fill='white'/%3E%3Ccircle cx='27.5' cy='27' r='3.6' fill='white'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one centred column, a map of levels like a widget tree, one question card at a time. */
+:root {
+  --bg: #eef2f9;
+  --surface: #ffffff;
+  --surface-2: #f5f7fc;
+  --ink: #131c33;
+  --muted: #5b6687;
+  --line: #d9e0ef;
+  --accent: #2b5cf0;
+  --accent-ink: #ffffff;
+  --accent-soft: #e3eafe;
+  --good: #128a5c;
+  --good-soft: #def5ea;
+  --bad: #d2394b;
+  --bad-soft: #fde6e8;
+  --gold: #c98a00;
+  --gold-soft: #fff1cc;
+  --heart: #e9405a;
+  --shadow: 0 1px 2px rgba(19, 28, 51, .06), 0 6px 18px rgba(19, 28, 51, .06);
+  --display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1322; --surface: #161f36; --surface-2: #1c2742; --ink: #e9edf8; --muted: #9ba7c6; --line: #2a3657;
+    --accent: #6f93ff; --accent-ink: #0d1322; --accent-soft: #22305a; --good: #3ccb8f; --good-soft: #143a2c;
+    --bad: #ff6b7d; --bad-soft: #43202a; --gold: #f2c14e; --gold-soft: #3a2f12; --heart: #ff6b81;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1322; --surface: #161f36; --surface-2: #1c2742; --ink: #e9edf8; --muted: #9ba7c6; --line: #2a3657;
+  --accent: #6f93ff; --accent-ink: #0d1322; --accent-soft: #22305a; --good: #3ccb8f; --good-soft: #143a2c;
+  --bad: #ff6b7d; --bad-soft: #43202a; --gold: #f2c14e; --gold-soft: #3a2f12; --heart: #ff6b81;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 40px;
+}
+.wrap { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+code { font-family: var(--mono); font-size: .86em; background: var(--surface-2); border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; }
+
+/* Top bar */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo { width: 38px; height: 38px; flex: none; }
+.brand h1 { font-size: 20px; font-weight: 800; }
+.brand small { display: block; color: var(--muted); font-size: 12px; font-family: var(--body); font-weight: 500; letter-spacing: 0; }
+.stats { display: flex; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-weight: 600; font-size: 13px; font-variant-numeric: tabular-nums; }
+.chip svg { width: 15px; height: 15px; }
+.chip.xp { color: var(--gold); }
+.chip.fire { color: var(--heart); }
+
+/* Hero */
+.hero { background: var(--accent); color: var(--accent-ink); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; }
+.hero::after { content: ""; position: absolute; right: -40px; top: -40px; width: 180px; height: 180px; border-radius: 50%; border: 28px solid currentColor; opacity: .08; }
+.hero h2 { font-size: 22px; font-weight: 700; }
+.hero p { margin: 0; opacity: .9; max-width: 46ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { border: 0; border-radius: 12px; padding: 11px 16px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: transform .08s ease; }
+.btn:active { transform: translateY(1px); }
+.btn svg { width: 17px; height: 17px; }
+.btn-light { background: var(--accent-ink); color: var(--accent); }
+.btn-ghost-light { background: transparent; color: var(--accent-ink); border: 2px solid currentColor; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-soft { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+/* Level map */
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.section-head h3 { font-size: 16px; }
+.section-head span { color: var(--muted); font-size: 13px; }
+.map { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0; position: relative; }
+.node { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 14px; position: relative; padding-block: 6px; }
+.node:not(:last-child)::before { content: ""; position: absolute; left: 21px; top: 50px; bottom: -6px; width: 2px; background: var(--line); }
+.node.done:not(:last-child)::before { background: var(--good); }
+.dot { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-family: var(--display); font-weight: 800; background: var(--surface); border: 2px solid var(--line); color: var(--muted); position: relative; z-index: 1; }
+.node.open .dot { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.node.done .dot { border-color: var(--good); background: var(--good); color: var(--surface); }
+.dot svg { width: 18px; height: 18px; }
+.node-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; min-width: 0; text-align: left; display: flex; flex-direction: column; gap: 2px; width: 100%; }
+.node.open .node-card, .node.done .node-card { box-shadow: var(--shadow); }
+.node-card:hover:not([disabled]) { border-color: var(--accent); }
+.node-card[disabled] { cursor: not-allowed; opacity: .65; }
+.node-title { font-family: var(--display); font-weight: 700; font-size: 15px; }
+.node-sub { color: var(--muted); font-size: 12.5px; }
+.stars { display: flex; gap: 2px; }
+.stars svg { width: 18px; height: 18px; }
+.star-on { color: var(--gold); }
+.star-off { color: var(--line); }
+
+.set-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; padding: 12px 14px; font-size: 13px; color: var(--muted); }
+.set-row b { color: var(--ink); }
+.linkish { background: none; border: 0; color: var(--accent); font-weight: 600; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Play */
+.playbar { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; }
+.iconbtn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; }
+.iconbtn svg { width: 18px; height: 18px; }
+.progress { height: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.progress > i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .3s ease; }
+.hearts { display: flex; gap: 3px; }
+.hearts svg { width: 22px; height: 22px; }
+.heart-on { color: var(--heart); }
+.heart-off { color: var(--line); }
+.meta-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.combo { color: var(--heart); font-weight: 700; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 16px; }
+.qtype { font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.qtext { font-family: var(--display); font-size: 19px; font-weight: 600; line-height: 1.4; }
+.keys { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.keys li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; background: var(--surface-2); border-radius: 10px; padding: 9px 12px; font-weight: 500; }
+.keys li b { font-family: var(--display); color: var(--accent); }
+.keys li.blank { border: 2px dashed var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+.opts { display: flex; flex-direction: column; gap: 10px; }
+.opts.tf { flex-direction: row; }
+.opts.tf .opt { flex: 1; justify-content: center; font-size: 16px; }
+.opt { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: var(--surface); border: 2px solid var(--line); border-radius: 14px; padding: 12px 14px; font-weight: 500; min-width: 0; }
+.opt:hover:not([disabled]) { border-color: var(--accent); }
+.opt .letter { flex: none; width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: var(--surface-2); border: 1px solid var(--line); font-family: var(--display); font-weight: 700; font-size: 13px; color: var(--muted); }
+.opt span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.opt[disabled] { cursor: default; }
+.opt.right { border-color: var(--good); background: var(--good-soft); }
+.opt.right .letter { background: var(--good); color: var(--surface); border-color: var(--good); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.opt.wrong .letter { background: var(--bad); color: var(--surface); border-color: var(--bad); }
+.opt.dim { opacity: .55; }
+.feedback { border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.feedback.ok { background: var(--good-soft); }
+.feedback.no { background: var(--bad-soft); }
+.feedback h4 { margin: 0; font-family: var(--display); font-size: 16px; }
+.feedback.ok h4 { color: var(--good); }
+.feedback.no h4 { color: var(--bad); }
+.feedback p { margin: 0; }
+.continue { align-self: stretch; }
+.hint-keys { font-size: 12px; color: var(--muted); text-align: center; }
+
+/* Results */
+.result { text-align: center; align-items: center; }
+.big-stars { display: flex; gap: 8px; justify-content: center; }
+.big-stars svg { width: 46px; height: 46px; }
+.result h2 { font-size: 26px; }
+.result-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
+.stat { background: var(--surface-2); border-radius: 12px; padding: 10px; }
+.stat b { display: block; font-family: var(--display); font-size: 22px; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 12px; color: var(--muted); }
+.review { text-align: left; width: 100%; display: flex; flex-direction: column; gap: 10px; }
+.review h3 { font-size: 15px; }
+.review-item { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; background: var(--surface); }
+.review-item .rq { font-weight: 600; }
+.review-item .ra { color: var(--good); font-weight: 600; }
+.review-item .rw { color: var(--muted); font-size: 13.5px; }
+.row-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; width: 100%; }
+.row-actions .btn { flex: 1 1 160px; }
+
+/* Lightning */
+.timer { font-family: var(--display); font-weight: 800; font-size: 20px; font-variant-numeric: tabular-nums; color: var(--accent); }
+.timer.low { color: var(--bad); }
+.flash-ok { animation: okflash .35s ease; }
+.flash-no { animation: noflash .35s ease; }
+@keyframes okflash { from { box-shadow: 0 0 0 4px var(--good); } to { box-shadow: var(--shadow); } }
+@keyframes noflash { from { box-shadow: 0 0 0 4px var(--bad); } to { box-shadow: var(--shadow); } }
+
+/* Generate panel */
+.gen { display: flex; flex-direction: column; gap: 12px; }
+.gen-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.gen-list li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 12px; border-radius: 10px; background: var(--surface-2); font-size: 14px; }
+.gen-list li.doing { outline: 2px solid var(--accent); }
+.gen-list .st { color: var(--muted); font-size: 13px; }
+.gen-list .st.ok { color: var(--good); font-weight: 600; }
+.gen-list .st.err { color: var(--bad); font-weight: 600; }
+.note { font-size: 13px; color: var(--muted); margin: 0; }
+.err-box { background: var(--bad-soft); color: var(--bad); border-radius: 12px; padding: 10px 14px; font-weight: 600; font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+@media (max-width: 420px) { .qtext { font-size: 17px; } .hero h2 { font-size: 20px; } .result-stats { gap: 6px; } }
+</style>
+
+<div class="wrap" id="app"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.5 2.9 4.6 6.6 4.6c2.2 0 3.6 1.2 4.4 2.5.8-1.3 2.2-2.5 4.4-2.5 3.7 0 5.7 3.9 4.2 7.2C19.5 16.4 12 21 12 21z"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 2L4 13.6h6.4L9.4 22 20 10h-6.6z"/></symbol>
+    <symbol id="i-fire" viewBox="0 0 24 24"><path fill="currentColor" d="M12.6 2.2c.6 3-1.3 4.7-2.8 6.3C8.3 10.1 7 11.7 7 14.3a5 5 0 0010 0c0-1.6-.6-2.9-1.4-3.9.1 1.2-.4 2.3-1.4 2.7.5-3.7-.6-7.6-1.6-10.9z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10V7.5a5 5 0 0110 0V10h1.2c.7 0 1.3.6 1.3 1.3v8.4c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3v-8.4c0-.7.6-1.3 1.3-1.3zm2.4 0h5.2V7.5a2.6 2.6 0 00-5.2 0z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.6 2.6.9-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z"/></symbol>
+  </defs>
+</svg>
+
+<script>
+"use strict";
+
+/* ---------- Built-in question bank ----------
+   m: [type, question, [correct, wrong, wrong, wrong], why]
+   k: [type, question, [point1, point2, point3], missingIndex, [wrong, wrong, wrong], why]
+   t: [type, statement, isTrue, why]                                                     */
+const BUILTIN = [
+{ id: "flutter", name: "Flutter basics", blurb: "Widgets, trees, lifecycle and layout", qs: [
+ ["m","Which tree does Flutter use to decide what to keep and what to rebuild when widgets change?",["The element tree","The widget tree","The render object tree","The layer tree"],"The element tree holds the live instances. It matches new widgets to existing elements by runtime type and key, and updates instead of recreating."],
+ ["m","What is `BuildContext`?",["A reference to the widget's Element, its place in the tree","A copy of the widget's State object","The render object that paints the widget","A global object shared by every widget in the app"],"BuildContext is the Element. That's why you can use it to look up ancestors like `Theme.of(context)`."],
+ ["m","Which `State` method runs exactly once, before the first build?",["`initState`","`didChangeDependencies`","`didUpdateWidget`","`build`"],"`didChangeDependencies` also runs right after `initState`, but it can run again later. `initState` runs only once."],
+ ["m","When is `didUpdateWidget` called?",["When the parent rebuilds and passes the widget new parameters","When an InheritedWidget the widget depends on changes","When the State object is first created","When the widget is removed from the tree"],"Memory trick: `didUpdateWidget` means my parent sent me new settings. `didChangeDependencies` means something above me changed."],
+ ["m","What does hot reload NOT do?",["Rerun `initState`","Inject the new code into the running app","Keep the current state","Rebuild the widget tree"],"Hot reload keeps state and doesn't rerun `main` or `initState`. Hot restart resets everything."],
+ ["m","What is Flutter's layout rule?",["Constraints go down, sizes go up, the parent sets the position","Sizes go down, constraints go up, the child sets the position","Constraints go down, sizes go up, the child sets its own position","Constraints go up, sizes go down, the parent sets the position"],"The parent gives constraints, the child picks a size inside them, and the parent decides where the child goes."],
+ ["m","Inside a Row, what's the difference between `Expanded` and `Flexible`?",["`Expanded` forces the child to fill the space; `Flexible` lets it be smaller","`Flexible` forces the child to fill the space; `Expanded` lets it be smaller","`Expanded` works only in a Column; `Flexible` only in a Row","`Flexible` sizes by flex factor; `Expanded` ignores the flex factor"],"`Expanded` is just `Flexible` with a tight fit."],
+ ["m","When do you actually need keys?",["When you reorder, insert or remove stateful widgets of the same type in a list","Whenever a widget has a const constructor","Whenever a widget calls `setState`","When a StatelessWidget sits inside a Column"],"Without keys, state can stick to the wrong item when the list changes order."],
+ ["m","At 60 frames per second, each frame has about how long to finish?",["16 ms","60 ms","6 ms","33 ms"],"1000 ms divided by 60 is about 16 ms. 33 ms is the budget at 30 fps."],
+ ["m","Why does a `const` widget help performance?",["It's created once and Flutter can skip rebuilding the same instance","It runs on a separate isolate","It skips layout but still rebuilds every frame","It is cached on disk between app launches"],"Identical const objects are canonicalised, so the parent rebuild sees the same instance."],
+ ["k","State lifecycle",["`initState` once at the start","`build` runs many times","`dispose` once at the end"],2,["`deactivate` once at the start","`didUpdateWidget` once at the end","`setState` once at the end"],"`dispose` is where you clean up controllers and subscriptions."],
+ ["k","StatelessWidget vs StatefulWidget",["Stateless has no state of its own","Stateful has a State object that lives across rebuilds","Stateful has `dispose` to clean up controllers"],1,["Stateful has a State object that is recreated on every build","Stateful rebuilds only when its parent rebuilds","Stateful keeps its state in the widget's final fields"],"The State object survives rebuilds. The widget itself is immutable and recreated."],
+ ["k","The three trees in Flutter",["Widget tree: the immutable configuration you write","Element tree: live instances that decide what to rebuild","Render tree: layout, painting and hit-testing"],2,["Render tree: the immutable configuration you write","Render tree: live instances that hold the State","Render tree: the list of routes in the Navigator"],"Render objects do the expensive work, so Flutter keeps and updates them."],
+ ["t","A StatelessWidget can never be rebuilt.",false,"It rebuilds whenever its parent rebuilds with new arguments. It just has no state of its own."],
+ ["t","`ListView.builder` builds items lazily as they scroll into view.",true,"That's why it scales to long lists, unlike `ListView` with a full children list."],
+ ["t","Hot restart keeps the app's current state.",false,"Hot restart resets all state. Hot reload is the one that keeps it."],
+ ["t","Calling `setState` after `dispose` throws an error.",true,"Check `mounted` after any `await` before calling `setState`."]
+]},
+{ id: "dart", name: "Dart language", blurb: "Null safety, async, isolates and types", qs: [
+ ["m","What's the difference between `final` and `const`?",["`final` is set once at runtime; `const` is fixed at compile time","`final` is fixed at compile time; `const` is set at runtime","`final` can be reassigned once; `const` never","They're the same, but `const` is faster"],"Example: `DateTime.now()` can be final but not const."],
+ ["m","Which line gives a compile error?",["`const now = DateTime.now();`","`final now = DateTime.now();`","`const pi = 3.14;`","`final list = const [1, 2];`"],"A const value must be known at compile time, and the current time isn't."],
+ ["m","What happens if you read a `late` variable before it's set?",["A `LateInitializationError` at runtime","A compile-time error","It returns null","It returns the type's default value"],"`late` moves the check to runtime, so use it carefully."],
+ ["m","What does this print? `print('A'); Future(() => print('B')); scheduleMicrotask(() => print('C')); print('D');`",["A D C B","A B C D","A D B C","A C D B"],"Sync code first (A, D), then all microtasks (C), then the event queue (B)."],
+ ["m","How do isolates communicate?",["By sending messages; they don't share memory","By sharing global variables","By locking shared memory with a mutex","By running on the same event loop"],"Each isolate has its own memory and event loop."],
+ ["m","What should you use to parse a very large JSON file without freezing the UI?",["`Isolate.run` or `compute`","`Future.delayed`","`scheduleMicrotask`","`async` and `await` alone"],"async/await alone still runs on the same isolate, so heavy CPU work still blocks frames."],
+ ["m","What does a sealed class give you?",["Exhaustive switches, because the compiler knows every subtype","It can't have any subclasses at all","It becomes immutable automatically","It can only be used as a mixin"],"If you add a new subtype and forget to handle it, the switch won't compile."],
+ ["m","Single-subscription vs broadcast stream?",["Single allows one listener; broadcast allows many","Single sends one event; broadcast sends many","Broadcast buffers events for late listeners; single doesn't","Single can't be cancelled; broadcast can"],"A broadcast listener only gets events emitted after it subscribes."],
+ ["m","`var` vs `dynamic`?",["`var` infers the type once and keeps it; `dynamic` turns off static checks","`var` turns off static checks; `dynamic` infers the type once","`dynamic` can't hold null; `var` can","They're identical"],"With `dynamic`, type errors move to runtime."],
+ ["m","Why override `==` and `hashCode` together?",["Equal objects must have equal hash codes, or Sets and Maps break","Dart won't compile otherwise","It makes objects immutable","It lets const constructors work"],"That's what `Equatable` does for you from a list of props."],
+ ["k","Future vs Stream",["A Future gives one value once, like an API call","A Stream gives many values over time, like a chat","Cancel stream subscriptions to avoid memory leaks"],1,["A Stream gives one value later, like a timer","A Stream gives many values at once, like a List","A Stream gives values only while the app is in the background"],"Pronounce Future as FYOO-cher, not feature."],
+ ["k","Isolates",["A separate worker with its own memory","Isolates don't share memory and talk only by messages","Use one for heavy work like big JSON"],0,["A separate thread that shares the app's memory","The main UI thread of the Flutter app","A background mode of the event loop"],"An isolate isn't Flutter's main thread. It's a separate worker next to it."],
+ ["k","Sound null safety",["Types are non-nullable by default","`String?` can be null, `String` can't","The compiler checks this before the app runs"],2,["The runtime adds null checks only in release mode","The analyzer warns, but the code still compiles","Null errors are caught by try/catch automatically"],"Because it's sound, the compiler can trust the types and optimise."],
+ ["t","`await` blocks the whole app until the Future completes.",false,"It pauses only that function. The event loop keeps running other work."],
+ ["t","All microtasks run before the next event-queue item.",true,"The microtask queue is always emptied first."],
+ ["t","A mixin is applied with the `extends` keyword.",false,"Mixins use `with`."],
+ ["t","Extension methods are resolved by the variable's static type.",true,"They're resolved at compile time, not by the runtime type."]
+]},
+{ id: "state", name: "State management", blurb: "Bloc, Cubit, Provider and rebuilds", qs: [
+ ["m","Where should navigation after a successful login go when using Bloc?",["In a `BlocListener`","In a `BlocBuilder`","In a `BlocSelector`","In `initState`"],"The builder can run several times for the same state, so a push there could open the screen twice."],
+ ["m","What's the main difference between Cubit and Bloc?",["Cubit exposes methods; Bloc receives events","Cubit receives events; Bloc exposes methods","Cubit can't be tested with bloc_test","Bloc can't emit more than one state"],"Cubit is simpler with less boilerplate."],
+ ["m","When is Bloc a better choice than Cubit?",["When you need event transformers like debounce","When the screen has a form","When you need sealed states","When the state is a single bool"],"Event transformers like debounce or switchMap are where Bloc shines."],
+ ["m","What does `buildWhen` do?",["Decides whether BlocBuilder rebuilds for a state change","Decides when the Bloc emits a state","Delays the build by a duration","Runs a side effect once per change"],"`listenWhen` does the same filtering for BlocListener."],
+ ["m","Why make Bloc states Equatable?",["So identical states don't trigger a rebuild, and tests can compare them","So they can be serialised to JSON","So they can be changed in place","Because Bloc requires it to compile"],"Bloc skips emitting a state equal to the current one."],
+ ["m","What's an advantage of Riverpod over Provider?",["It doesn't depend on BuildContext and catches missing providers at compile time","It's built directly on InheritedWidget","It only works together with Bloc","It's faster because it has no testing support"],"Provider is the one built on InheritedWidget."],
+ ["m","When is `setState` enough?",["When the state belongs to one widget only, like a toggle","When two screens need the same data","When there's business logic with API calls","When you need to cache data offline"],"Once several widgets share it, or there's logic, move it out."],
+ ["m","What happens if a Cubit emits after it's closed?",["It throws a StateError","The state is ignored silently","The app restarts","The UI rebuilds anyway"],"That's why you check `isClosed` after an await."],
+ ["k","BlocBuilder vs BlocListener vs BlocConsumer",["BlocBuilder rebuilds the UI for each state","BlocListener runs side effects once per change","BlocConsumer does both"],1,["BlocListener rebuilds the UI only on errors","BlocListener runs side effects on every frame","BlocListener listens to events, not states"],"Navigation, SnackBars and dialogs go in the listener."],
+ ["k","Why navigate in the listener, not the builder",["The builder can run many times for the same state","The listener runs once per state change","So the listener is the place for side effects"],0,["The builder runs only once per screen","The builder can't access the BuildContext","The builder runs after the listener, so it's too late"],"A Cubit has no events, so the listener reacts to state changes."],
+ ["k","Registering Cubits as factories in get_it",["Each screen gets a fresh Cubit","BlocProvider closes it when the screen goes","A singleton would keep old state, and a closed Cubit can't be reused"],2,["A singleton would make tests run slower","A singleton can't be used with BlocProvider at all","A factory Cubit is shared by all screens"],"Fresh Cubit, clean state, every visit."],
+ ["t","BlocListener is a good place to show a SnackBar.",true,"SnackBars are side effects, so they go in the listener."],
+ ["t","A Cubit receives events and maps them to states.",false,"That's Bloc. A Cubit exposes methods that emit states."],
+ ["t","BlocSelector rebuilds only when the selected part of the state changes.",true,"Use it to avoid rebuilding for unrelated fields."],
+ ["t","Business logic belongs inside widgets, close to the UI.",false,"Widgets render state and forward actions. Logic goes in Cubits or use cases."]
+]},
+{ id: "arch", name: "Architecture and SOLID", blurb: "Clean Architecture, DI and design principles", qs: [
+ ["m","In Clean Architecture, which way do dependencies point?",["Inward, towards the domain","Outward, towards the UI","From the domain to the data layer","Both ways between all layers"],"The domain knows nothing about the other layers."],
+ ["m","Which layer should have no Flutter or http imports?",["Domain","Presentation","Data","Core widgets"],"That keeps business rules pure Dart and easy to test."],
+ ["m","What does the open/closed principle say?",["Open for extension, closed for modification","Open for modification, closed for extension","Open for editing, closed for deletion","Classes are public, but fields are private"],"Add new behaviour without changing existing code, like a new Failure type."],
+ ["m","What does Liskov substitution say?",["A subtype must work anywhere its parent is expected","A child class must override every method","A parent can replace its child anywhere","Each class has one reason to change"],"The last option is the single responsibility principle."],
+ ["m","What does dependency inversion say?",["Depend on abstractions, not concrete classes","Pass objects in through the constructor","Children depend on their parents","High-level code creates low-level objects itself"],"Passing objects in is dependency injection, a related but different idea."],
+ ["m","Where should exceptions be mapped to domain failures?",["In the repository","In the widget","In the data source","In the use case"],"The data source turns status codes into exceptions. The repository turns exceptions into failures."],
+ ["m","What does interface segregation say?",["Use small, focused interfaces instead of one big one","Every class must implement an interface","Each interface must live in its own file","Interfaces can't have methods with bodies"],"Clients shouldn't depend on methods they don't use."],
+ ["m","Why prefer composition over inheritance?",["Inheritance couples you to the parent's implementation","Composition is always faster at runtime","Dart doesn't support inheritance","Inherited classes can't be tested"],"Flutter itself builds widgets by combining other widgets."],
+ ["k","The repository pattern",["Hides where data comes from","The rest of the app asks for data and doesn't care about the source","It's the place to map exceptions to failures"],1,["The rest of the app reads the database directly","The repository renders the data in widgets","The rest of the app chooses the data source"],"Network, cache or database, the caller doesn't need to know."],
+ ["k","Dependency injection",["Objects receive their dependencies instead of creating them","Easy to test with mocks","Easy to swap implementations"],0,["Objects create their dependencies in the constructor","Dependencies are stored as global variables","Objects depend only on abstract classes"],"The last wrong option describes dependency inversion, not injection."],
+ ["k","Clean Architecture layers",["Domain: entities, use cases, repository contracts","Data: models, data sources, repository implementations","Presentation: UI and state"],1,["Data: entities, use cases and Cubits","Data: widgets, models and routes","Data: repository contracts and use cases"],"Contracts live in the domain; implementations live in data."],
+ ["t","Dependency injection and dependency inversion are the same thing.",false,"Injection is passing dependencies in. Inversion is depending on abstractions."],
+ ["t","Feature-first folders group everything for one feature together.",true,"A feature can then be found, changed or removed as one unit."],
+ ["t","Use cases belong in the data layer.",false,"Use cases belong in the domain layer."],
+ ["t","A model's `fromJson` belongs in the data layer.",true,"Models know the JSON shape; entities don't."]
+]},
+{ id: "testing", name: "Testing", blurb: "Unit, widget, integration and bloc_test", qs: [
+ ["m","Which test runs the full app on a device or emulator?",["Integration test","Widget test","Unit test","Golden test"],"Use the `integration_test` package."],
+ ["m","When does `pumpAndSettle` time out?",["When there's an infinite animation, like a shimmer","When the widget has no state","When the test uses mocktail","When the screen has a TextField"],"Use `pump` with a duration for infinite animations."],
+ ["m","In bloc_test, what goes in `act`?",["Calling the Cubit method, like `lookup`","Creating the Cubit with mocks","The list of expected states","Checking that a mock was called"],"build creates, act calls, expect lists the states, verify checks the calls."],
+ ["m","What does `verify` check?",["How many times a mock method was called","That states were emitted in order","That the widget rendered","That no exceptions were thrown"],"Example: the use case was called only once, proving the duplicate guard works."],
+ ["m","Why choose mocktail over mockito?",["It needs no code generation","It's the only one that works with Bloc","It runs tests in parallel","It supports golden tests"],"No build_runner and no generated files."],
+ ["m","What does a golden test compare?",["The rendered UI with a saved image","JSON responses with saved files","Performance with a saved baseline","The number of elements in two widget trees"],"Good for catching visual regressions."],
+ ["m","Stub vs mock?",["A stub returns fixed answers; a mock also records calls so you can verify them","A stub records calls; a mock returns fixed answers","A stub is a full in-memory implementation","They're the same thing"],"A full in-memory implementation is a fake."],
+ ["m","What makes code easy to test?",["Injected dependencies and logic kept outside widgets","Global singletons everywhere","Logic inside build methods","Avoiding interfaces"],"Then you can pass mocks and test logic without the UI."],
+ ["k","The three parts of a bloc_test",["build: create the Cubit with mocks","act: call a method","expect: the list of states"],2,["expect: how many times the mock was called","expect: the widget tree after pumping","expect: that no exceptions were thrown"],"Counting calls is `verify`, not `expect`."],
+ ["k","Types of tests",["Unit tests for logic and Cubits","Widget tests for UI without a device","Integration tests run the app on a device"],1,["Widget tests run the whole app on an emulator","Widget tests compare pixels with saved images","Widget tests only check business logic"],"Golden tests are the ones that compare pixels."],
+ ["t","Widget tests need a real device.",false,"They render widgets in a test environment without a device."],
+ ["t","`pump` renders a single frame.",true,"Optionally after a duration."],
+ ["t","A fake is a simple working implementation, like an in-memory repository.",true,"Fakes work; stubs return fixed answers; mocks record calls."],
+ ["t","Integration tests run faster than unit tests.",false,"They're the slowest, because they run the whole app."]
+]},
+{ id: "net", name: "Networking and performance", blurb: "APIs, tokens, storage and speed", qs: [
+ ["m","Where should access tokens be stored?",["`flutter_secure_storage`","`shared_preferences`","A global variable","A JSON file in the documents folder"],"shared_preferences isn't encrypted."],
+ ["m","On a 401 response, what should a good client do?",["Refresh the token once, retry, and log out if refreshing fails","Retry the same request until it works","Show the raw error to the user","Clear the cache and restart the app"],"Also make sure parallel requests don't all refresh at once."],
+ ["m","What does status code 403 mean?",["Forbidden: you're known but not allowed","Unauthorised: you're not logged in","Not found","Too many requests"],"401 is not logged in, 404 not found, 429 too many requests."],
+ ["m","Which build mode should you measure performance in?",["Profile mode","Debug mode","Release mode with assertions","Test mode"],"Debug mode is slow on purpose and gives misleading numbers."],
+ ["m","What commonly causes memory leaks in Flutter?",["Not disposing controllers or cancelling subscriptions","Using const widgets","Using ListView.builder","Using Equatable states"],"Clean up in `dispose`."],
+ ["m","What does `RepaintBoundary` do?",["Puts a subtree on its own layer so it repaints alone","Stops a subtree from rebuilding","Clips painting to the widget's bounds","Caches the widget to disk"],"Useful next to an animation; don't overuse it."],
+ ["m","What does Dio add over the http package?",["Interceptors, cancellation and timeouts","Support for JSON decoding","The ability to send GET requests","Mocking with MockClient"],"MockClient belongs to the http package."],
+ ["m","How is GraphQL different from REST?",["The client asks one endpoint for exactly the fields it needs","GraphQL uses many fixed endpoints","REST lets clients pick exactly the fields they want","GraphQL only works with Firebase"],"It avoids over-fetching, but caching is harder."],
+ ["k","Fixing performance problems",["Measure in profile mode with DevTools","Each frame has about 16 ms","Fix with const, smaller rebuilds, lazy lists and isolates"],1,["Each frame has about 60 ms","Each frame has about 6 ms","Each frame has about 33 ms"],"60 is frames per second; 16 ms is one frame."],
+ ["k","Handling API errors",["Map status codes and exceptions to typed failures in one place","Show a clear message per failure type","Offer a Retry and never show raw errors"],0,["Catch errors inside each widget's build method","Throw exceptions up to the UI to display","Log errors and hide them from the user"],"That one place is the repository."],
+ ["t","`shared_preferences` is a safe place for access tokens.",false,"Use flutter_secure_storage."],
+ ["t","A 500 status code means the server had an error.",true,"5xx codes are server errors."],
+ ["t","Measuring performance in debug mode gives accurate results.",false,"Use profile mode."],
+ ["t","A large JSON payload can be decoded in an isolate to avoid jank.",true,"`Isolate.run` makes this easy."]
+]},
+{ id: "general", name: "General programming", blurb: "Big O, data structures and git", qs: [
+ ["m","What's the average time to check `contains` on a Set?",["O(1)","O(n)","O(log n)","O(n²)"],"A List's contains is O(n)."],
+ ["m","What's the time complexity of binary search on a sorted list?",["O(log n)","O(n)","O(1)","O(n log n)"],"It halves the search space each step."],
+ ["m","What is a stack?",["Last in, first out","First in, first out","Sorted by priority","Random access only"],"A queue is first in, first out."],
+ ["m","Flutter's Navigator route history behaves like which structure?",["A stack","A queue","A set","A map"],"push adds on top, pop removes the top."],
+ ["m","What's the best approach for Two Sum?",["A map from value to index, O(n)","Two nested loops, O(n)","Sorting, then two nested loops, O(n)","Recursion over every pair, O(log n)"],"Two nested loops work but are O(n²). Say the brute force first, then improve."],
+ ["m","Concurrency vs parallelism?",["Concurrency interleaves tasks; parallelism runs them at the same time on several cores","Parallelism interleaves tasks; concurrency runs them on several cores","They're the same thing","Concurrency needs isolates; parallelism uses async"],"Async on one isolate is concurrency. Several isolates give parallelism."],
+ ["m","What does `git rebase` do?",["Replays your commits on top of another branch for a linear history","Merges branches with a merge commit","Deletes old commits from the remote","Creates a new branch from main"],"Never rebase a shared branch others have pulled."],
+ ["m","What's the main risk of recursion?",["A stack overflow if it goes too deep or has no base case","It's always O(n²)","It can't return values","It always leaks memory in Dart"],"Many recursive solutions can be rewritten as loops."],
+ ["m","Why is immutability useful for app state?",["It's easier to reason about, safe to share and easy to compare","It always uses less memory","It makes code run on several cores","Dart requires it for every class"],"That's why Bloc states use copyWith."],
+ ["k","Checking a palindrome",["Lowercase the string and remove spaces","Compare it with its reversed version","Return a bool"],1,["Sort the characters and compare them","Count how often each character appears","Reverse the order of the words"],"Sorting or counting checks for anagrams, not palindromes."],
+ ["k","git merge vs rebase",["Merge keeps the full history with a merge commit","Rebase replays commits for a linear history","Never rebase a shared branch others have pulled"],2,["Never merge a branch that has conflicts","Always rebase main onto your feature branch","Never merge without squashing first"],"Rebasing a shared branch rewrites history others depend on."],
+ ["t","A queue is first in, first out.",true,"Like Dart's event queue."],
+ ["t","For large n, O(n log n) is slower than O(n²).",false,"O(n log n) grows much more slowly than O(n²)."],
+ ["t","Async code on one Dart isolate is concurrency, not parallelism.",true,"It interleaves tasks on one thread."],
+ ["t","`git merge` rewrites existing commit history.",false,"Merge keeps history; rebase rewrites it."]
+]}
+];
+
+/* ---------- Helpers ---------- */
+const $ = (sel, root = document) => root.querySelector(sel);
+const app = $("#app");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const rich = s => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
+const icon = (id, cls = "") => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const LETTERS = ["A", "B", "C", "D"];
+
+function load(key, fallback) { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch { return fallback; } }
+function save(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch { /* storage unavailable */ } }
+
+/* Turn compact rows into question objects. */
+function fromRow(r) {
+  if (r[0] === "m") return { type: "m", q: r[1], correct: r[2][0], wrong: r[2].slice(1), why: r[3] };
+  if (r[0] === "k") return { type: "k", q: r[1], points: r[2], missing: r[3], correct: r[2][r[3]], wrong: r[4], why: r[5] };
+  return { type: "t", q: r[1], answer: !!r[2], why: r[3] };
+}
+const BUILTIN_BANK = BUILTIN.map(t => ({ id: t.id, name: t.name, blurb: t.blurb, qs: t.qs.map(fromRow) }));
+
+/* ---------- Persistent state: saved in this browser only ---------- */
+let progress = load("fq-progress", null);
+if (!progress || typeof progress !== "object") progress = { xp: 0, bestStreak: 0, bestLightning: 0, levels: {}, run: null, updatedAt: 0 };
+progress.levels = progress.levels || {};
+let bank = load("fq-bank", null);
+let setInfo = load("fq-set", { number: 1, generated: false, updatedAt: 0 });
+if (!Array.isArray(bank) || bank.length !== BUILTIN_BANK.length) { bank = BUILTIN_BANK; setInfo = { number: 1, generated: false, updatedAt: setInfo.updatedAt || 0 }; }
+
+let screen = "home";
+let db = null, uid = null, syncState = "local"; // local | synced | error
+const pending = {}, writing = {};
+
+function persist() {
+  progress.updatedAt = Date.now();
+  save("fq-progress", progress);
+  queueSync("progress");
+}
+function persistBank() {
+  setInfo.updatedAt = Date.now();
+  save("fq-bank", setInfo.generated ? bank : null);
+  save("fq-set", setInfo);
+  queueSync("bank");
+}
+function docFor(kind) { return db.doc("data/users/" + uid + "/" + kind); }
+function bodyFor(kind) {
+  return kind === "progress"
+    ? { json: JSON.stringify(progress), updatedAt: progress.updatedAt }
+    : { json: JSON.stringify({ bank: setInfo.generated ? bank : null, setInfo }), updatedAt: setInfo.updatedAt };
+}
+function queueSync(kind) { if (!db || !uid) return; pending[kind] = true; flush(kind); }
+async function flush(kind) {
+  if (writing[kind]) return;
+  writing[kind] = true;
+  try {
+    while (pending[kind]) {
+      pending[kind] = false;
+      await docFor(kind).set(bodyFor(kind));
+    }
+    if (syncState !== "synced") { syncState = "synced"; updateSyncNote(); }
+  } catch (e) {
+    syncState = "error"; updateSyncNote();
+  } finally { writing[kind] = false; }
+}
+function syncText() {
+  return "Your progress is saved in this browser only. Nothing is sent anywhere.";
+}
+function updateSyncNote() { const n = $("#syncnote"); if (n) n.textContent = syncText(); }
+
+function levelState(i) {
+  const id = bank[i].id;
+  const rec = progress.levels[id] || {};
+  const prevDone = i === 0 || (progress.levels[bank[i - 1].id] || {}).passed;
+  return { stars: rec.stars || 0, passed: !!rec.passed, open: prevDone || !!rec.passed };
+}
+
+/* ---------- Home ---------- */
+function savedRun() {
+  const r = progress.run;
+  if (!r || !Array.isArray(r.items) || !bank[r.level] || r.levelId !== bank[r.level].id) return null;
+  return r;
+}
+
+function renderHome() {
+  stopTimer();
+  run = null;
+  screen = "home";
+  const saved = savedRun();
+  const done = bank.filter((_, i) => levelState(i).passed).length;
+  const totalQs = bank.reduce((n, t) => n + t.qs.length, 0);
+  app.innerHTML = `
+    <header class="top">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="var(--accent)"/><path d="M20 12v6M20 18l-7 6M20 18l7 6" stroke="var(--accent-ink)" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="20" cy="11" r="3.6" fill="var(--accent-ink)"/><circle cx="12.5" cy="27" r="3.6" fill="var(--accent-ink)"/><circle cx="27.5" cy="27" r="3.6" fill="var(--accent-ink)"/></svg>
+        <h1>InterviewDex<small>Real interview questions for Flutter developers. Built with Flutter.</small></h1>
+      </div>
+      <div class="stats">
+        <span class="chip xp" title="Total XP">${icon("star")}${progress.xp} XP</span>
+        <span class="chip fire" title="Best streak">${icon("fire")}${progress.bestStreak}</span>
+      </div>
+    </header>
+
+    <section class="hero">
+      ${saved ? `
+      <h2>Pick up where you left off</h2>
+      <p>${esc(bank[saved.level].name)}, question ${Math.min(saved.idx + 1, saved.items.length)} of ${saved.items.length}, ${saved.hearts} ${saved.hearts === 1 ? "heart" : "hearts"} left, +${saved.xp} XP so far.</p>` : `
+      <h2>${done === 0 ? "Start your first level" : done === bank.length ? "All levels cleared" : `${done} of ${bank.length} levels cleared`}</h2>
+      <p>Each level mixes multiple choice, missing key points and true or false. You have 3 hearts per level. Get 3 right in a row for double XP.</p>`}
+      <div class="hero-actions">
+        <button class="btn btn-light" id="continue">${icon("bolt")}${saved ? "Resume" : done === bank.length ? "Play again" : "Continue"}</button>
+        <button class="btn btn-ghost-light" id="lightning">${icon("fire")}Lightning round</button>
+      </div>
+    </section>
+
+    <div class="section-head"><h3>Levels</h3><span>${totalQs} questions in this set</span></div>
+    <ol class="map">
+      ${bank.map((t, i) => {
+        const s = levelState(i);
+        const cls = s.passed ? "done" : s.open ? "open" : "locked";
+        const dot = s.passed ? icon("check") : s.open ? (i + 1) : icon("lock");
+        return `<li class="node ${cls}">
+          <div class="dot">${dot}</div>
+          <button class="node-card" data-level="${i}" ${s.open ? "" : "disabled"} aria-label="${esc(t.name)}${s.open ? "" : ", locked"}">
+            <span class="node-title">${esc(t.name)}</span>
+            <span class="node-sub">${saved && saved.level === i ? `In progress · question ${Math.min(saved.idx + 1, saved.items.length)} of ${saved.items.length}` : `${esc(t.blurb)} · ${t.qs.length} questions`}</span>
+          </button>
+          <div class="stars" aria-label="${s.stars} of 3 stars">${[0, 1, 2].map(n => icon("star", n < s.stars ? "star-on" : "star-off")).join("")}</div>
+        </li>`;
+      }).join("")}
+    </ol>
+
+    <p class="note" id="syncnote">${syncText()}</p>
+  `;
+  app.querySelectorAll("[data-level]").forEach(b => b.addEventListener("click", () => {
+    const i = +b.dataset.level;
+    const s = savedRun();
+    if (s && s.level === i) resumeRun(s); else startLevel(i);
+  }));
+  $("#continue").addEventListener("click", () => {
+    const s = savedRun();
+    if (s) return resumeRun(s);
+    let i = bank.findIndex((_, k) => !levelState(k).passed);
+    if (i < 0) i = 0;
+    startLevel(i);
+  });
+  $("#lightning").addEventListener("click", startLightning);
+  window.scrollTo(0, 0);
+}
+
+/* ---------- Level play ---------- */
+let run = null;
+
+function prepare(q) {
+  if (q.type === "t") return { ...q, options: [{ text: "True", ok: q.answer }, { text: "False", ok: !q.answer }] };
+  const opts = shuffle([{ text: q.correct, ok: true }, ...q.wrong.slice(0, 3).map(w => ({ text: w, ok: false }))]);
+  return { ...q, options: opts };
+}
+
+function startLevel(i) {
+  const topic = bank[i];
+  run = { level: i, levelId: topic.id, items: shuffle(topic.qs).map(prepare), idx: 0, hearts: 3, streak: 0, xp: 0, mistakes: [], answered: false, correct: 0 };
+  saveRun(run.idx);
+  renderQuestion();
+}
+
+/* Save the level in progress. `nextIdx` is where to resume. */
+function saveRun(nextIdx) {
+  const { answered, ...rest } = run;
+  progress.run = { ...rest, idx: nextIdx };
+  persist();
+}
+
+function resumeRun(r) {
+  run = { ...r, answered: false };
+  if (run.hearts <= 0 || run.idx >= run.items.length) return finishLevel();
+  renderQuestion();
+}
+
+/* What to show when the game opens: the level in progress, or the map. */
+function openStart() {
+  const s = savedRun();
+  if (s) resumeRun(s); else renderHome();
+}
+
+function heartsHtml(n) { return [0, 1, 2].map(k => icon("heart", k < n ? "heart-on" : "heart-off")).join(""); }
+
+function renderQuestion() {
+  screen = "play";
+  const q = run.items[run.idx];
+  const total = run.items.length;
+  const typeLabel = q.type === "m" ? "Multiple choice" : q.type === "k" ? "Missing key point" : "True or false";
+  const prompt = q.type === "k" ? `${rich(q.q)}: which key point is missing?` : rich(q.q);
+  app.innerHTML = `
+    <div class="playbar">
+      <button class="iconbtn" id="quit" aria-label="Back to levels">${icon("x")}</button>
+      <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${run.idx}"><i style="width:${(run.idx / total) * 100}%"></i></div>
+      <div class="hearts" aria-label="${run.hearts} hearts left">${heartsHtml(run.hearts)}</div>
+    </div>
+    <div class="meta-row">
+      <span>${esc(bank[run.level].name)} · ${run.idx + 1} of ${total}</span>
+      <span>${run.streak >= 3 ? `<span class="combo">${icon("fire")} x2 combo</span> · ` : ""}+${run.xp} XP</span>
+    </div>
+    <article class="card" id="card">
+      <div class="qtype">${typeLabel}</div>
+      <div class="qtext">${prompt}</div>
+      ${q.type === "k" ? `<ol class="keys">${q.points.map((p, n) => n === q.missing
+          ? `<li class="blank"><b>${n + 1}</b><span>?</span></li>`
+          : `<li><b>${n + 1}</b><span>${rich(p)}</span></li>`).join("")}</ol>` : ""}
+      <div class="opts ${q.type === "t" ? "tf" : ""}" id="opts">
+        ${q.options.map((o, n) => `<button class="opt" data-n="${n}">${q.type === "t" ? "" : `<span class="letter">${LETTERS[n]}</span>`}<span>${rich(o.text)}</span></button>`).join("")}
+      </div>
+      <div id="fb"></div>
+    </article>
+    <p class="hint-keys">Tip: press ${q.type === "t" ? "T or F" : "1 to 4"} to answer, Enter to continue.</p>
+  `;
+  run.answered = false;
+  app.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => answer(+b.dataset.n)));
+  $("#quit").addEventListener("click", renderHome);
+  window.scrollTo(0, 0);
+}
+
+function answer(n) {
+  if (!run || run.answered) return;
+  run.answered = true;
+  const q = run.items[run.idx];
+  const ok = q.options[n].ok;
+  app.querySelectorAll(".opt").forEach((b, k) => {
+    b.disabled = true;
+    if (q.options[k].ok) b.classList.add("right");
+    else if (k === n) b.classList.add("wrong");
+    else b.classList.add("dim");
+  });
+  let gained = 0;
+  if (ok) {
+    run.streak += 1; run.correct += 1;
+    gained = run.streak >= 3 ? 20 : 10;
+    run.xp += gained;
+    progress.bestStreak = Math.max(progress.bestStreak, run.streak);
+  } else {
+    run.streak = 0; run.hearts -= 1;
+    run.mistakes.push(q);
+  }
+  saveRun(run.idx + 1);
+  const right = q.options.find(o => o.ok).text;
+  const fb = $("#fb");
+  fb.innerHTML = `
+    <div class="feedback ${ok ? "ok" : "no"}">
+      <h4>${ok ? (gained === 20 ? "Correct, +20 XP combo" : "Correct, +10 XP") : (run.hearts > 0 ? "Not quite" : "Out of hearts")}</h4>
+      ${ok ? "" : `<p><b>Answer:</b> ${rich(right)}</p>`}
+      <p>${rich(q.why)}</p>
+    </div>
+    <button class="btn btn-primary continue" id="next" style="margin-top:12px;width:100%">${run.hearts === 0 ? "See results" : run.idx + 1 === run.items.length ? "Finish level" : "Continue"}</button>`;
+  $("#next").addEventListener("click", next);
+  $("#next").focus({ preventScroll: true });
+  fb.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  const hearts = $(".hearts"); if (hearts) hearts.innerHTML = heartsHtml(run.hearts);
+}
+
+function next() {
+  if (!run || !run.answered) return;
+  if (run.hearts === 0 || run.idx + 1 === run.items.length) return finishLevel();
+  run.idx += 1;
+  renderQuestion();
+}
+
+function finishLevel() {
+  const passed = run.hearts > 0;
+  const misses = run.mistakes.length;
+  const stars = passed ? (misses === 0 ? 3 : misses === 1 ? 2 : 1) : 0;
+  const id = bank[run.level].id;
+  const rec = progress.levels[id] || {};
+  progress.levels[id] = { stars: Math.max(rec.stars || 0, stars), passed: rec.passed || passed };
+  progress.xp += run.xp;
+  progress.run = null;
+  persist();
+  screen = "result";
+  const hasNext = run.level + 1 < bank.length;
+  const finished = run;
+  app.innerHTML = `
+    <article class="card result">
+      <div class="big-stars">${[0, 1, 2].map(n => icon("star", n < stars ? "star-on" : "star-off")).join("")}</div>
+      <h2>${passed ? (stars === 3 ? "Perfect level" : "Level cleared") : "Out of hearts"}</h2>
+      <p class="note">${passed ? `${esc(bank[finished.level].name)} is done${hasNext && !levelState(finished.level + 1).passed ? ", and the next level is open" : ""}.` : "Review the answers below, then try again. You keep the XP you earned."}</p>
+      <div class="result-stats">
+        <div class="stat"><b>${finished.correct}</b><span>correct</span></div>
+        <div class="stat"><b>${misses}</b><span>mistakes</span></div>
+        <div class="stat"><b>+${finished.xp}</b><span>XP</span></div>
+      </div>
+      ${misses ? `<div class="review"><h3>Review your mistakes</h3>${finished.mistakes.map(q => `
+        <div class="review-item">
+          <div class="rq">${q.type === "k" ? rich(q.q) + ": missing key point" : rich(q.q)}</div>
+          <div class="ra">${q.type === "t" ? (q.answer ? "True" : "False") : rich(q.correct)}</div>
+          <div class="rw">${rich(q.why)}</div>
+        </div>`).join("")}</div>` : ""}
+      <div class="row-actions">
+        <button class="btn btn-soft" id="retry">Play again</button>
+        ${passed && hasNext ? `<button class="btn btn-primary" id="nextlvl">Next level</button>` : `<button class="btn btn-primary" id="home">Back to levels</button>`}
+      </div>
+    </article>`;
+  run = null;
+  $("#retry").addEventListener("click", () => startLevel(finished.level));
+  const nl = $("#nextlvl"); if (nl) nl.addEventListener("click", () => startLevel(finished.level + 1));
+  const hm = $("#home"); if (hm) hm.addEventListener("click", renderHome);
+  window.scrollTo(0, 0);
+}
+
+/* ---------- Lightning round ---------- */
+let lightning = null;
+let timerId = null;
+const clock = s => { s = Math.max(s, 0); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+function stopTimer() { if (timerId) { clearInterval(timerId); timerId = null; } lightning = null; }
+
+function startLightning() {
+  stopTimer();
+  screen = "lightning";
+  const pool = shuffle(bank.flatMap(t => t.qs.filter(q => q.type === "t")));
+  lightning = { pool, idx: 0, score: 0, left: 60, wrong: [] };
+  renderLightning();
+  timerId = setInterval(() => {
+    if (!lightning) return;
+    lightning.left -= 1;
+    const el = $("#timer");
+    if (el) { el.textContent = clock(lightning.left); el.classList.toggle("low", lightning.left <= 10); }
+    if (lightning.left <= 0) endLightning();
+  }, 1000);
+}
+
+function renderLightning() {
+  const L = lightning;
+  if (L.idx >= L.pool.length) { L.pool = L.pool.concat(shuffle(L.pool)); }
+  const q = L.pool[L.idx];
+  app.innerHTML = `
+    <div class="playbar">
+      <button class="iconbtn" id="quit" aria-label="Back to levels">${icon("x")}</button>
+      <div class="timer ${L.left <= 10 ? "low" : ""}" id="timer" aria-live="off">${clock(L.left)}</div>
+      <span class="chip xp">${icon("bolt")}${L.score}</span>
+    </div>
+    <article class="card" id="card">
+      <div class="qtype">Lightning round · true or false</div>
+      <div class="qtext">${rich(q.q)}</div>
+      <div class="opts tf">
+        <button class="opt" data-v="1"><span>True</span></button>
+        <button class="opt" data-v="0"><span>False</span></button>
+      </div>
+    </article>
+    <p class="hint-keys">Answer as many as you can in 60 seconds. Press T or F.</p>`;
+  app.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => lightningAnswer(b.dataset.v === "1")));
+  $("#quit").addEventListener("click", renderHome);
+}
+
+function lightningAnswer(v) {
+  const L = lightning; if (!L) return;
+  const q = L.pool[L.idx];
+  const ok = v === q.answer;
+  if (ok) L.score += 1; else L.wrong.push(q);
+  L.idx += 1;
+  renderLightning();
+  const card = $("#card"); if (card) card.classList.add(ok ? "flash-ok" : "flash-no");
+}
+
+function endLightning() {
+  const L = lightning; stopTimer();
+  if (!L) return;
+  const xp = L.score * 5;
+  const best = L.score > progress.bestLightning;
+  progress.bestLightning = Math.max(progress.bestLightning, L.score);
+  progress.xp += xp;
+  persist();
+  const seen = new Set();
+  const wrong = L.wrong.filter(q => !seen.has(q.q) && seen.add(q.q));
+  app.innerHTML = `
+    <article class="card result">
+      <h2>${L.score} correct</h2>
+      <p class="note">${best ? "New best score." : `Your best is ${progress.bestLightning}.`} You earned ${xp} XP.</p>
+      ${wrong.length ? `<div class="review"><h3>Check these</h3>${wrong.map(q => `
+        <div class="review-item"><div class="rq">${rich(q.q)}</div><div class="ra">${q.answer ? "True" : "False"}</div><div class="rw">${rich(q.why)}</div></div>`).join("")}</div>` : ""}
+      <div class="row-actions">
+        <button class="btn btn-soft" id="again">Play again</button>
+        <button class="btn btn-primary" id="home">Back to levels</button>
+      </div>
+    </article>`;
+  $("#again").addEventListener("click", startLightning);
+  $("#home").addEventListener("click", renderHome);
+  window.scrollTo(0, 0);
+}
+
+/* ---------- Keyboard ---------- */
+document.addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (lightning) {
+    if (k === "t") lightningAnswer(true);
+    if (k === "f") lightningAnswer(false);
+    return;
+  }
+  if (!run) return;
+  const q = run.items[run.idx];
+  if (!run.answered) {
+    if (q.type === "t" && (k === "t" || k === "f")) answer(q.options.findIndex(o => o.text === (k === "t" ? "True" : "False")));
+    else if (q.type !== "t" && ["1", "2", "3", "4"].includes(k)) answer(+k - 1);
+  } else if (k === "enter") { e.preventDefault(); next(); }
+});
+
+openStart();
+</script>
+
+</body></html>

@@ -43,14 +43,24 @@ jobs:
       - name: Build web
         run: flutter build web --release --base-href /interviewdex/
 
+  # The public site is the HTML version in prototype/ until the Flutter UI
+  # reaches the same design. Switch the path to build/web at that point.
+  site:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/web
+          path: prototype
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: build
+    needs: site
     runs-on: ubuntu-latest
     permissions:
       pages: write
